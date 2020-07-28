@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2019 Aspose Pty Ltd
+* Copyright (c) 2003-2020 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -242,7 +242,7 @@ export class FileApi {
         }
 
         const requestOptions: request.Options = {
-            method: "POST",
+            method: "PUT",
             qs: queryParameters,
             uri: localVarPath,
             json: true,
@@ -347,7 +347,7 @@ export class FolderApi {
         
         localVarPath = addQueryParameterToUrl(localVarPath, queryParameters, "storageName", requestObj.storageName);
         const requestOptions: request.Options = {
-            method: "POST",
+            method: "PUT",
             qs: queryParameters,
             uri: localVarPath,
             json: true,
@@ -652,6 +652,36 @@ export class SignApi {
     }
 
     /**
+     * Deletes signatures in the document
+     * @param requestObj contains request parameters
+     */
+    public async deleteSignatures(requestObj: model.DeleteSignaturesRequest): Promise<model.DeleteResult> {
+        if (requestObj === null || requestObj === undefined) {
+            throw new Error('Required parameter "requestObj" was null or undefined when calling deleteSignatures.');
+        }
+
+        const localVarPath = this.configuration.getServerUrl() + "/signature/delete";
+        const queryParameters: any = {};
+
+        // verify required parameter 'requestObj.deleteSettings' is not null or undefined
+        if (requestObj.deleteSettings === null || requestObj.deleteSettings === undefined) {
+            throw new Error('Required parameter "requestObj.deleteSettings" was null or undefined when calling deleteSignatures.');
+        }
+        
+        const requestOptions: request.Options = {
+            method: "POST",
+            qs: queryParameters,
+            uri: localVarPath,
+            json: true,
+            body: Serializer.serialize(requestObj.deleteSettings, requestObj.deleteSettings.constructor.name === "Object" ? "DeleteSettings" : requestObj.deleteSettings.constructor.name),
+        };
+
+        const response = await invokeApiMethod(requestOptions, this.configuration);
+        const result =  Serializer.deserialize(response.body, "DeleteResult");
+        return Promise.resolve(result);
+    }
+
+    /**
      * Searches for signatures applied to the document
      * @param requestObj contains request parameters
      */
@@ -678,6 +708,36 @@ export class SignApi {
 
         const response = await invokeApiMethod(requestOptions, this.configuration);
         const result =  Serializer.deserialize(response.body, "SearchResult");
+        return Promise.resolve(result);
+    }
+
+    /**
+     * Updates signatures in the document
+     * @param requestObj contains request parameters
+     */
+    public async updateSignatures(requestObj: model.UpdateSignaturesRequest): Promise<model.UpdateResult> {
+        if (requestObj === null || requestObj === undefined) {
+            throw new Error('Required parameter "requestObj" was null or undefined when calling updateSignatures.');
+        }
+
+        const localVarPath = this.configuration.getServerUrl() + "/signature/update";
+        const queryParameters: any = {};
+
+        // verify required parameter 'requestObj.updateSettings' is not null or undefined
+        if (requestObj.updateSettings === null || requestObj.updateSettings === undefined) {
+            throw new Error('Required parameter "requestObj.updateSettings" was null or undefined when calling updateSignatures.');
+        }
+        
+        const requestOptions: request.Options = {
+            method: "POST",
+            qs: queryParameters,
+            uri: localVarPath,
+            json: true,
+            body: Serializer.serialize(requestObj.updateSettings, requestObj.updateSettings.constructor.name === "Object" ? "UpdateSettings" : requestObj.updateSettings.constructor.name),
+        };
+
+        const response = await invokeApiMethod(requestOptions, this.configuration);
+        const result =  Serializer.deserialize(response.body, "UpdateResult");
         return Promise.resolve(result);
     }
 

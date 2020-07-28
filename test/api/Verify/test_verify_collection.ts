@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2019 Aspose Pty Ltd
+* Copyright (c) 2003-2020 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,43 +42,42 @@ describe("verify_collection_tests", () => {
 
     it("test_verify_collection_image", async () => {  
         var testFile = TestFile.image_signed;
-        var settings = populate_options(OptionsBase.DocumentTypeEnum.Image, testFile);
+        var settings = populate_options_image(testFile);
         var response = await TestContext.getSignApi().verifySignatures(new VerifySignaturesRequest(settings));
         check_response(response, testFile);
     });
 
     it("test_verify_collection_pdf", async () => {  
         var testFile = TestFile.pdf_signed;
-        var settings = populate_options(OptionsBase.DocumentTypeEnum.Pdf, testFile);
+        var settings = populate_options(testFile);
         var response = await TestContext.getSignApi().verifySignatures(new VerifySignaturesRequest(settings));
         check_response(response, testFile);
     });
 
     it("test_verify_collection_presentation", async () => {  
         var testFile = TestFile.presentation_signed;
-        var settings = populate_options(OptionsBase.DocumentTypeEnum.Presentation, testFile);
+        var settings = populate_options(testFile);
         var response = await TestContext.getSignApi().verifySignatures(new VerifySignaturesRequest(settings));
         check_response(response, testFile);
     });
 
     it("test_verify_collection_spreadsheet", async () => {  
         var testFile = TestFile.spreadsheet_signed;
-        var settings = populate_options(OptionsBase.DocumentTypeEnum.Spreadsheet, testFile);
+        var settings = populate_options(testFile);
         var response = await TestContext.getSignApi().verifySignatures(new VerifySignaturesRequest(settings));
         check_response(response, testFile);
     });
 
     it("test_verify_collection_wordprocessing", async () => {  
         var testFile = TestFile.wordprocessing_signed;
-        var settings = populate_options(OptionsBase.DocumentTypeEnum.WordProcessing, testFile);
+        var settings = populate_options(testFile);
         var response = await TestContext.getSignApi().verifySignatures(new VerifySignaturesRequest(settings));
         check_response(response, testFile);
     });
 
-    function barcode_opts(documentType: OptionsBase.DocumentTypeEnum)
+    function barcode_opts()
     {
         var opts = new VerifyBarcodeOptions();
-        opts.documentType = documentType;
         opts.signatureType = OptionsBase.SignatureTypeEnum.Barcode;
         opts.barcodeType = 'Code39Standard';
         opts.text = '123456789012';
@@ -97,10 +96,9 @@ describe("verify_collection_tests", () => {
         return opts;
     }    
 
-    function qr_code_opts(documentType: OptionsBase.DocumentTypeEnum)
+    function qr_code_opts()
     {
         var opts = new VerifyQRCodeOptions();
-        opts.documentType = documentType;
         opts.signatureType = OptionsBase.SignatureTypeEnum.QRCode;
         opts.qRCodeType = 'Aztec';
         opts.text = 'John Smith';
@@ -119,10 +117,9 @@ describe("verify_collection_tests", () => {
         return opts;
     } 
 
-    function digital_opts(documentType: OptionsBase.DocumentTypeEnum)
+    function digital_opts()
     {
         var opts = new VerifyDigitalOptions();
-        opts.documentType = documentType;
         opts.signatureType = OptionsBase.SignatureTypeEnum.Digital;
 
         opts.page = 1;
@@ -138,10 +135,9 @@ describe("verify_collection_tests", () => {
         return opts;
     }    
 
-    function text_opts(documentType: OptionsBase.DocumentTypeEnum)
+    function text_opts()
     {
         var opts = new VerifyTextOptions();
-        opts.documentType = documentType;
         opts.signatureType = OptionsBase.SignatureTypeEnum.Text;        
         opts.text = 'John Smith';
         opts.matchType = VerifyTextOptions.MatchTypeEnum.Contains;
@@ -159,16 +155,19 @@ describe("verify_collection_tests", () => {
         return opts;
     }    
 
-    function populate_options(documentType: OptionsBase.DocumentTypeEnum, testFile: TestFile)
+    function populate_options_image(testFile: TestFile)
     {
         var settings = new VerifySettings();
         settings.fileInfo = testFile.ToFileInfo();
-        if(documentType == OptionsBase.DocumentTypeEnum.Image)
-            settings.options = [barcode_opts(documentType), qr_code_opts(documentType)];
-        else if(documentType == OptionsBase.DocumentTypeEnum.Presentation)
-            settings.options = [barcode_opts(documentType), qr_code_opts(documentType), text_opts(documentType)];
-        else
-            settings.options = [barcode_opts(documentType), qr_code_opts(documentType), digital_opts(documentType), text_opts(documentType)];
+        settings.options = [barcode_opts(), qr_code_opts()];
+        return settings;
+    }    
+
+    function populate_options(testFile: TestFile)
+    {
+        var settings = new VerifySettings();
+        settings.fileInfo = testFile.ToFileInfo();
+        settings.options = [barcode_opts(), qr_code_opts(), digital_opts(), text_opts()];
         return settings;
     }
 

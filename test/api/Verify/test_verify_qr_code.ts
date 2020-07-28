@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2019 Aspose Pty Ltd
+* Copyright (c) 2003-2020 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -42,43 +42,42 @@ describe("verify_qr_code_tests", () => {
 
     it("test_verify_qr_code_image", async () => {  
         var testFile = TestFile.image_signed;
-        var settings = populate_options(OptionsBase.DocumentTypeEnum.Image, testFile);
+        var settings = populate_options(testFile);
         var response = await TestContext.getSignApi().verifySignatures(new VerifySignaturesRequest(settings));
         check_response(response, testFile);
     });
 
     it("test_verify_qr_code_pdf", async () => {  
         var testFile = TestFile.pdf_signed;
-        var settings = populate_options(OptionsBase.DocumentTypeEnum.Pdf, testFile);
+        var settings = populate_options(testFile);
         var response = await TestContext.getSignApi().verifySignatures(new VerifySignaturesRequest(settings));
         check_response(response, testFile);
     });
 
     it("test_verify_qr_code_presentation", async () => {  
         var testFile = TestFile.presentation_signed;
-        var settings = populate_options(OptionsBase.DocumentTypeEnum.Presentation, testFile);
+        var settings = populate_options(testFile);
         var response = await TestContext.getSignApi().verifySignatures(new VerifySignaturesRequest(settings));
         check_response(response, testFile);
     });
 
     it("test_verify_qr_code_spreadsheet", async () => {  
         var testFile = TestFile.spreadsheet_signed;
-        var settings = populate_options(OptionsBase.DocumentTypeEnum.Spreadsheet, testFile);
+        var settings = populate_options(testFile);
         var response = await TestContext.getSignApi().verifySignatures(new VerifySignaturesRequest(settings));
         check_response(response, testFile);
     });
 
     it("test_verify_qr_code_wordprocessing", async () => {  
         var testFile = TestFile.wordprocessing_signed;
-        var settings = populate_options(OptionsBase.DocumentTypeEnum.WordProcessing, testFile);
+        var settings = populate_options(testFile);
         var response = await TestContext.getSignApi().verifySignatures(new VerifySignaturesRequest(settings));
         check_response(response, testFile);
     });
   
-    function populate_options(documentType: OptionsBase.DocumentTypeEnum, testFile: TestFile)
+    function populate_options(testFile: TestFile)
     {
         var opts = new VerifyQRCodeOptions();
-        opts.documentType = documentType;
         opts.signatureType = OptionsBase.SignatureTypeEnum.QRCode;
         opts.qRCodeType = 'Aztec';
         opts.text = 'John Smith';

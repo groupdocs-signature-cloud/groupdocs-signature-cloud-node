@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2019 Aspose Pty Ltd
+* Copyright (c) 2003-2020 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,7 +44,7 @@ describe("sign_stamp_tests", () => {
     it("test_sign_stamp_image", async () => {  
         var testFile = TestFile.image_jpg;
         var signedFileName = "Output\\ImageStampSigned.jpg";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.Image, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
@@ -52,7 +52,7 @@ describe("sign_stamp_tests", () => {
     it("test_sign_stamp_pdf", async () => {  
         var testFile = TestFile.pdf_one_page;
         var signedFileName = "Output\\PdfStampSigned.pdf";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.Pdf, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
@@ -60,7 +60,7 @@ describe("sign_stamp_tests", () => {
     it("test_sign_stamp_presentation", async () => {  
         var testFile = TestFile.presentation_pptx;
         var signedFileName = "Output\\PresentationStampSigned.pptx";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.Presentation, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
@@ -68,7 +68,7 @@ describe("sign_stamp_tests", () => {
     it("test_sign_stamp_spreadsheet", async () => {  
         var testFile = TestFile.spreadsheet_xlsx;
         var signedFileName = "Output\\SpreadsheetStampSigned.xlsx";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.Spreadsheet, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
@@ -76,17 +76,16 @@ describe("sign_stamp_tests", () => {
     it("test_sign_stamp_wordprocessing", async () => {  
         var testFile = TestFile.word_docx;
         var signedFileName = "Output\\WordStampSigned.docx";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.WordProcessing, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
   
-    function populate_options(signedFileName: string, documentType: OptionsBase.DocumentTypeEnum, testFile: TestFile)
+    function populate_options(signedFileName: string, testFile: TestFile)
     {
         var opts = new SignStampOptions();
-        opts.documentType = documentType;
         opts.signatureType = OptionsBase.SignatureTypeEnum.Stamp;
-        opts.imageGuid = TestFile.image_sign.GetPath();
+        opts.imageFilePath = TestFile.image_sign.GetPath();
 
         // set signature position on a page
         opts.left = 100;
@@ -107,7 +106,7 @@ describe("sign_stamp_tests", () => {
         opts.backgroundColor.web = "CornflowerBlue";
         opts.backgroundColorCropType = SignStampOptions.BackgroundColorCropTypeEnum.InnerArea;
         opts.backgroundImageCropType = SignStampOptions.BackgroundImageCropTypeEnum.MiddleArea;
-        opts.opacity = 0.8;
+        opts.transparency = 0.8;
 
         var outline = new StampLine();                
         outline.text = "John Smith";

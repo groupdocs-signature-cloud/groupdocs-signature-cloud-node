@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2019 Aspose Pty Ltd
+* Copyright (c) 2003-2020 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,7 @@ describe("sign_digital_tests", () => {
     it("test_sign_digital_pdf", async () => {  
         var testFile = TestFile.pdf_one_page;
         var signedFileName = "Output\\PdfDigitalSigned.pdf";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.Pdf, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
@@ -59,7 +59,7 @@ describe("sign_digital_tests", () => {
     it("test_sign_digital_spreadsheet", async () => {  
         var testFile = TestFile.spreadsheet_xlsx;
         var signedFileName = "Output\\SpreadsheetDigitalSigned.xlsx";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.Spreadsheet, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
@@ -67,18 +67,17 @@ describe("sign_digital_tests", () => {
     it("test_sign_digital_wordprocessing", async () => {  
         var testFile = TestFile.word_docx;
         var signedFileName = "Output\\WordDigitalSigned.docx";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.WordProcessing, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
   
-    function populate_options(signedFileName: string, documentType: OptionsBase.DocumentTypeEnum, testFile: TestFile)
+    function populate_options(signedFileName: string, testFile: TestFile)
     {
         var opts = new SignDigitalOptions();
-        opts.documentType = documentType;
         opts.signatureType = OptionsBase.SignatureTypeEnum.Digital;
-        opts.imageGuid = TestFile.additional_signature01.GetPath();
-        opts.certificateGuid = TestFile.additional_pfx.GetPath();
+        opts.imageFilePath = TestFile.additional_signature01.GetPath();
+        opts.certificateFilePath = TestFile.additional_pfx.GetPath();
         opts.password = "1234567890";
 
         var settings = new SignSettings();

@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2019 Aspose Pty Ltd
+* Copyright (c) 2003-2020 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -149,6 +149,11 @@ export class BorderLine {
             name: "color",
             baseName: "color",
             type: "Color",
+        },        
+        {
+            name: "visible",
+            baseName: "visible",
+            type: "boolean",
         }    ];
 
     /**
@@ -178,6 +183,11 @@ export class BorderLine {
      */
     public color: Color;
     
+    /**
+     * Gets or sets the border visibility
+     */
+    public visible: boolean;
+    
     public constructor(init?: Partial<BorderLine>) {
         
         Object.assign(this, init);
@@ -188,7 +198,6 @@ export class BorderLine {
 // tslint:disable-next-line:no-namespace
 export namespace BorderLine {
     export enum StyleEnum {
-        Default = 'Default' as any,
         Solid = 'Solid' as any,
         ShortDash = 'ShortDash' as any,
         ShortDot = 'ShortDot' as any,
@@ -200,6 +209,11 @@ export namespace BorderLine {
         DashDot = 'DashDot' as any,
         LongDashDot = 'LongDashDot' as any,
         LongDashDotDot = 'LongDashDotDot' as any,
+        RoundDot = 'RoundDot' as any,
+        SquareDot = 'SquareDot' as any,
+        DashDotDot = 'DashDotDot' as any,
+        DashLongDash = 'DashLongDash' as any,
+        DashLongDashDot = 'DashLongDashDot' as any,
     }
 }
 // tslint:enable:quotemark
@@ -264,6 +278,126 @@ export class Color {
     public web: string;
     
     public constructor(init?: Partial<Color>) {
+        
+        Object.assign(this, init);
+    }        
+}
+
+/**
+ * Base container class for delete signature options
+ */
+export class DeleteOptions {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "signatureType",
+            baseName: "signatureType",
+            type: "DeleteOptions.SignatureTypeEnum",
+        },        
+        {
+            name: "signatureId",
+            baseName: "signatureId",
+            type: "string",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return DeleteOptions.attributeTypeMap;
+    }
+
+    /**
+     * Specifies the type of signature
+     */
+    public signatureType: DeleteOptions.SignatureTypeEnum;
+    
+    /**
+     * Unique signature identifier to modify signature in the document over Update or Delete methods. This property will be set automatically after Sign or Search method being called. If this property was saved before it can be set manually to manipulate the signature.              
+     */
+    public signatureId: string;
+    
+    public constructor(init?: Partial<DeleteOptions>) {
+        
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace DeleteOptions {
+    export enum SignatureTypeEnum {
+        None = 'None' as any,
+        Text = 'Text' as any,
+        Image = 'Image' as any,
+        Digital = 'Digital' as any,
+        Barcode = 'Barcode' as any,
+        QRCode = 'QRCode' as any,
+        Stamp = 'Stamp' as any,
+    }
+}
+// tslint:enable:quotemark
+/**
+ * Delete result information
+ */
+export class DeleteResult {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "fileInfo",
+            baseName: "fileInfo",
+            type: "FileInfo",
+        },        
+        {
+            name: "size",
+            baseName: "size",
+            type: "number",
+        },        
+        {
+            name: "succeeded",
+            baseName: "succeeded",
+            type: "Array<Signature>",
+        },        
+        {
+            name: "failed",
+            baseName: "failed",
+            type: "Array<Signature>",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return DeleteResult.attributeTypeMap;
+    }
+
+    /**
+     * Source document basic info
+     */
+    public fileInfo: FileInfo;
+    
+    /**
+     * Source document size in bytes
+     */
+    public size: number;
+    
+    /**
+     * List of successfully deleted signatures
+     */
+    public succeeded: Array<Signature>;
+    
+    /**
+     * List of signatures that were not deleted
+     */
+    public failed: Array<Signature>;
+    
+    public constructor(init?: Partial<DeleteResult>) {
         
         Object.assign(this, init);
     }        
@@ -842,11 +976,6 @@ export class OptionsBase {
      */
     public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            name: "documentType",
-            baseName: "documentType",
-            type: "OptionsBase.DocumentTypeEnum",
-        },        
-        {
             name: "signatureType",
             baseName: "signatureType",
             type: "OptionsBase.SignatureTypeEnum",
@@ -874,11 +1003,6 @@ export class OptionsBase {
         return OptionsBase.attributeTypeMap;
     }
 
-    /**
-     * Specifies the type of document to process
-     */
-    public documentType: OptionsBase.DocumentTypeEnum;
-    
     /**
      * Specifies the signature type of processing
      */
@@ -908,13 +1032,6 @@ export class OptionsBase {
 // tslint:disable:quotemark
 // tslint:disable-next-line:no-namespace
 export namespace OptionsBase {
-    export enum DocumentTypeEnum {
-        Image = 'Image' as any,
-        Pdf = 'Pdf' as any,
-        Presentation = 'Presentation' as any,
-        Spreadsheet = 'Spreadsheet' as any,
-        WordProcessing = 'WordProcessing' as any,
-    }
     export enum SignatureTypeEnum {
         None = 'None' as any,
         Text = 'Text' as any,
@@ -1350,6 +1467,16 @@ export class SignResult {
             name: "downloadUrl",
             baseName: "downloadUrl",
             type: "string",
+        },        
+        {
+            name: "succeeded",
+            baseName: "succeeded",
+            type: "Array<Signature>",
+        },        
+        {
+            name: "failed",
+            baseName: "failed",
+            type: "Array<Signature>",
         }    ];
 
     /**
@@ -1374,6 +1501,16 @@ export class SignResult {
      */
     public downloadUrl: string;
     
+    /**
+     * List of newly created signatures
+     */
+    public succeeded: Array<Signature>;
+    
+    /**
+     * List of signatures that were failed to create
+     */
+    public failed: Array<Signature>;
+    
     public constructor(init?: Partial<SignResult>) {
         
         Object.assign(this, init);
@@ -1390,14 +1527,54 @@ export class Signature {
      */
     public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            name: "documentType",
-            baseName: "documentType",
-            type: "Signature.DocumentTypeEnum",
-        },        
-        {
             name: "signatureType",
             baseName: "signatureType",
             type: "Signature.SignatureTypeEnum",
+        },        
+        {
+            name: "pageNumber",
+            baseName: "pageNumber",
+            type: "number",
+        },        
+        {
+            name: "signatureId",
+            baseName: "signatureId",
+            type: "string",
+        },        
+        {
+            name: "isSignature",
+            baseName: "isSignature",
+            type: "boolean",
+        },        
+        {
+            name: "createdOn",
+            baseName: "createdOn",
+            type: "Date",
+        },        
+        {
+            name: "modifiedOn",
+            baseName: "modifiedOn",
+            type: "Date",
+        },        
+        {
+            name: "top",
+            baseName: "top",
+            type: "number",
+        },        
+        {
+            name: "left",
+            baseName: "left",
+            type: "number",
+        },        
+        {
+            name: "width",
+            baseName: "width",
+            type: "number",
+        },        
+        {
+            name: "height",
+            baseName: "height",
+            type: "number",
         }    ];
 
     /**
@@ -1408,14 +1585,54 @@ export class Signature {
     }
 
     /**
-     * Specifies the type of document to process (Image, Pdf, Presentation, Spreadsheet, WordProcessing)
-     */
-    public documentType: Signature.DocumentTypeEnum;
-    
-    /**
      * Specifies the signature type (Text, Image, Digital, Barcode, QRCode, Stamp)
      */
     public signatureType: Signature.SignatureTypeEnum;
+    
+    /**
+     * Specifies the page signature was found on
+     */
+    public pageNumber: number;
+    
+    /**
+     * Unique signature identifier to modify signature in the document over Update or Delete methods. This property will be set automatically after Sign or Search method being called. If this property was saved before it can be set manually to manipulate the signature.
+     */
+    public signatureId: string;
+    
+    /**
+     * Get or set flag to indicate if this component is Signature or document content. This property is being used with Update method to set element as signature (true) or document element (false).             
+     */
+    public isSignature: boolean;
+    
+    /**
+     * Get or set the signature creation date
+     */
+    public createdOn: Date;
+    
+    /**
+     * Get or set the signature modification date
+     */
+    public modifiedOn: Date;
+    
+    /**
+     * Specifies top position of signature
+     */
+    public top: number;
+    
+    /**
+     * Specifies left position of signature
+     */
+    public left: number;
+    
+    /**
+     * Specifies width of signature
+     */
+    public width: number;
+    
+    /**
+     * Specifies height of signature
+     */
+    public height: number;
     
     public constructor(init?: Partial<Signature>) {
         
@@ -1426,13 +1643,6 @@ export class Signature {
 // tslint:disable:quotemark
 // tslint:disable-next-line:no-namespace
 export namespace Signature {
-    export enum DocumentTypeEnum {
-        Image = 'Image' as any,
-        Pdf = 'Pdf' as any,
-        Presentation = 'Presentation' as any,
-        Spreadsheet = 'Spreadsheet' as any,
-        WordProcessing = 'WordProcessing' as any,
-    }
     export enum SignatureTypeEnum {
         None = 'None' as any,
         Text = 'Text' as any,
@@ -1757,6 +1967,186 @@ export class StorageFile {
 }
 
 /**
+ * Base container class for update signature options
+ */
+export class UpdateOptions {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "signatureType",
+            baseName: "signatureType",
+            type: "UpdateOptions.SignatureTypeEnum",
+        },        
+        {
+            name: "signatureId",
+            baseName: "signatureId",
+            type: "string",
+        },        
+        {
+            name: "left",
+            baseName: "left",
+            type: "number",
+        },        
+        {
+            name: "top",
+            baseName: "top",
+            type: "number",
+        },        
+        {
+            name: "width",
+            baseName: "width",
+            type: "number",
+        },        
+        {
+            name: "height",
+            baseName: "height",
+            type: "number",
+        },        
+        {
+            name: "isSignature",
+            baseName: "isSignature",
+            type: "boolean",
+        },        
+        {
+            name: "text",
+            baseName: "text",
+            type: "string",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return UpdateOptions.attributeTypeMap;
+    }
+
+    /**
+     * Specifies the type of signature
+     */
+    public signatureType: UpdateOptions.SignatureTypeEnum;
+    
+    /**
+     * Unique signature identifier to modify signature in the document over Update or Delete methods. This property will be set automatically after Sign or Search method being called. If this property was saved before it can be set manually to manipulate the signature.              
+     */
+    public signatureId: string;
+    
+    /**
+     * Specifies left position of signature
+     */
+    public left: number;
+    
+    /**
+     * Specifies top position of signature
+     */
+    public top: number;
+    
+    /**
+     * Specifies width of signature
+     */
+    public width: number;
+    
+    /**
+     * Specifies height of signature
+     */
+    public height: number;
+    
+    /**
+     * Get or set flag to indicate if this component is Signature or document content. This property is being used with Update method to set element as signature (true) or document element (false).             
+     */
+    public isSignature: boolean;
+    
+    /**
+     * The text to update text signature
+     */
+    public text: string;
+    
+    public constructor(init?: Partial<UpdateOptions>) {
+        
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace UpdateOptions {
+    export enum SignatureTypeEnum {
+        None = 'None' as any,
+        Text = 'Text' as any,
+        Image = 'Image' as any,
+        Digital = 'Digital' as any,
+        Barcode = 'Barcode' as any,
+        QRCode = 'QRCode' as any,
+        Stamp = 'Stamp' as any,
+    }
+}
+// tslint:enable:quotemark
+/**
+ * Update result information
+ */
+export class UpdateResult {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "fileInfo",
+            baseName: "fileInfo",
+            type: "FileInfo",
+        },        
+        {
+            name: "size",
+            baseName: "size",
+            type: "number",
+        },        
+        {
+            name: "succeeded",
+            baseName: "succeeded",
+            type: "Array<Signature>",
+        },        
+        {
+            name: "failed",
+            baseName: "failed",
+            type: "Array<Signature>",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return UpdateResult.attributeTypeMap;
+    }
+
+    /**
+     * Source document basic info
+     */
+    public fileInfo: FileInfo;
+    
+    /**
+     * Source document size in bytes
+     */
+    public size: number;
+    
+    /**
+     * List of successfully modified signatures
+     */
+    public succeeded: Array<Signature>;
+    
+    /**
+     * List of signatures that were not updated
+     */
+    public failed: Array<Signature>;
+    
+    public constructor(init?: Partial<UpdateResult>) {
+        
+        Object.assign(this, init);
+    }        
+}
+
+/**
  * Verification result information
  */
 export class VerifyResult {
@@ -1827,6 +2217,11 @@ export class BarcodeSignature extends Signature {
             name: "text",
             baseName: "text",
             type: "string",
+        },        
+        {
+            name: "format",
+            baseName: "format",
+            type: "string",
         }    ];
 
     /**
@@ -1846,6 +2241,11 @@ export class BarcodeSignature extends Signature {
      */
     public text: string;
     
+    /**
+     * Specifies the format of Barcode signature image.
+     */
+    public format: string;
+    
     public constructor(init?: Partial<BarcodeSignature>) {
         super(init);
         Object.assign(this, init);
@@ -1857,6 +2257,39 @@ export class BarcodeSignature extends Signature {
 export namespace BarcodeSignature {
 }
 // tslint:enable:quotemark
+/**
+ * Defines delete sign document settings
+ */
+export class DeleteSettings extends BaseSettings {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "options",
+            baseName: "options",
+            type: "Array<DeleteOptions>",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(DeleteSettings.attributeTypeMap);
+    }
+
+    /**
+     * Gets or sets options to perform signatures delete
+     */
+    public options: Array<DeleteOptions>;
+    
+    public constructor(init?: Partial<DeleteSettings>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
 /**
  * Contains digital Signature properties
  */
@@ -1875,11 +2308,6 @@ export class DigitalSignature extends Signature {
             name: "isValid",
             baseName: "isValid",
             type: "boolean",
-        },        
-        {
-            name: "type",
-            baseName: "type",
-            type: "DigitalSignature.TypeEnum",
         },        
         {
             name: "signTime",
@@ -1905,11 +2333,6 @@ export class DigitalSignature extends Signature {
     public isValid: boolean;
     
     /**
-     * Gets or sets the type of the digital signature
-     */
-    public type: DigitalSignature.TypeEnum;
-    
-    /**
      * Gets or sets the time the document was signed
      */
     public signTime: Date;
@@ -1923,11 +2346,6 @@ export class DigitalSignature extends Signature {
 // tslint:disable:quotemark
 // tslint:disable-next-line:no-namespace
 export namespace DigitalSignature {
-    export enum TypeEnum {
-        Unknown = 'Unknown' as any,
-        CryptoApi = 'CryptoApi' as any,
-        XmlDsig = 'XmlDsig' as any,
-    }
 }
 // tslint:enable:quotemark
 /**
@@ -1973,6 +2391,54 @@ export class FileVersion extends StorageFile {
     }        
 }
 
+/**
+ * Contains Image signature properties             
+ */
+export class ImageSignature extends Signature {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "size",
+            baseName: "size",
+            type: "number",
+        },        
+        {
+            name: "format",
+            baseName: "format",
+            type: "string",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(ImageSignature.attributeTypeMap);
+    }
+
+    /**
+     * Specifies the image size
+     */
+    public size: number;
+    
+    /**
+     * Specifies the format of image
+     */
+    public format: string;
+    
+    public constructor(init?: Partial<ImageSignature>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace ImageSignature {
+}
+// tslint:enable:quotemark
 /**
  * Defines document information request settings
  */
@@ -2068,6 +2534,11 @@ export class QRCodeSignature extends Signature {
             name: "text",
             baseName: "text",
             type: "string",
+        },        
+        {
+            name: "format",
+            baseName: "format",
+            type: "string",
         }    ];
 
     /**
@@ -2086,6 +2557,11 @@ export class QRCodeSignature extends Signature {
      * Specifies text of Barcode
      */
     public text: string;
+    
+    /**
+     * Specifies the format of QR-code signature image.
+     */
+    public format: string;
     
     public constructor(init?: Partial<QRCodeSignature>) {
         super(init);
@@ -2309,6 +2785,54 @@ export class SolidBrush extends Brush {
 }
 
 /**
+ * Contains Text signature properties
+ */
+export class TextSignature extends Signature {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "text",
+            baseName: "text",
+            type: "string",
+        },        
+        {
+            name: "signatureImplementation",
+            baseName: "signatureImplementation",
+            type: "string",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(TextSignature.attributeTypeMap);
+    }
+
+    /**
+     * Specifies signature text
+     */
+    public text: string;
+    
+    /**
+     * Text signature implementation
+     */
+    public signatureImplementation: string;
+    
+    public constructor(init?: Partial<TextSignature>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace TextSignature {
+}
+// tslint:enable:quotemark
+/**
  * Represents texture brush
  */
 export class TextureBrush extends Brush {
@@ -2318,8 +2842,8 @@ export class TextureBrush extends Brush {
      */
     public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            name: "imageGuid",
-            baseName: "imageGuid",
+            name: "imageFilePath",
+            baseName: "imageFilePath",
             type: "string",
         }    ];
 
@@ -2331,11 +2855,44 @@ export class TextureBrush extends Brush {
     }
 
     /**
-     * Gets or sets the texture image file Guid
+     * Gets or sets the texture image file path
      */
-    public imageGuid: string;
+    public imageFilePath: string;
     
     public constructor(init?: Partial<TextureBrush>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+/**
+ * Defines update sign document settings
+ */
+export class UpdateSettings extends BaseSettings {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "options",
+            baseName: "options",
+            type: "Array<UpdateOptions>",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(UpdateSettings.attributeTypeMap);
+    }
+
+    /**
+     * Gets or sets options to perform signatures update
+     */
+    public options: Array<UpdateOptions>;
+    
+    public constructor(init?: Partial<UpdateSettings>) {
         super(init);
         Object.assign(this, init);
     }        
@@ -2570,8 +3127,8 @@ export class SignImageOptions extends SignOptions {
      */
     public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
-            name: "imageGuid",
-            baseName: "imageGuid",
+            name: "imageFilePath",
+            baseName: "imageFilePath",
             type: "string",
         },        
         {
@@ -2630,9 +3187,14 @@ export class SignImageOptions extends SignOptions {
             type: "SignImageOptions.MarginMeasureTypeEnum",
         },        
         {
-            name: "opacity",
-            baseName: "opacity",
+            name: "transparency",
+            baseName: "transparency",
             type: "number",
+        },        
+        {
+            name: "border",
+            baseName: "border",
+            type: "BorderLine",
         }    ];
 
     /**
@@ -2645,7 +3207,7 @@ export class SignImageOptions extends SignOptions {
     /**
      * Gets or sets the signature image file name. This property is used only if ImageStream is not specified
      */
-    public imageGuid: string;
+    public imageFilePath: string;
     
     /**
      * Left X position of Signature on Document Page in Measure values (pixels or percent see MeasureType LocationMeasureType). (works if horizontal alignment is not specified). For Spreadsheet documents this property is mutually exclusive with Column property. If Left property is set ColumnNumber will be reset to 0
@@ -2703,9 +3265,14 @@ export class SignImageOptions extends SignOptions {
     public marginMeasureType: SignImageOptions.MarginMeasureTypeEnum;
     
     /**
-     * Gets or sets the additional opacity for sign image (value from 0.0 (clear) through 1.0 (opaque)). By default the value is 1.0
+     * Gets or sets the signature transparency(value from 0.0 (opaque) through 1.0 (clear)). Default value is 0 (opaque).
      */
-    public opacity: number;
+    public transparency: number;
+    
+    /**
+     * Gets or sets the signature border properties
+     */
+    public border: BorderLine;
     
     public constructor(init?: Partial<SignImageOptions>) {
         super(init);
@@ -2727,14 +3294,12 @@ export namespace SignImageOptions {
         Millimeters = 'Millimeters' as any,
     }
     export enum HorizontalAlignmentEnum {
-        Default = 'Default' as any,
         None = 'None' as any,
         Left = 'Left' as any,
         Center = 'Center' as any,
         Right = 'Right' as any,
     }
     export enum VerticalAlignmentEnum {
-        Default = 'Default' as any,
         None = 'None' as any,
         Top = 'Top' as any,
         Center = 'Center' as any,
@@ -2832,11 +3397,6 @@ export class SignTextOptions extends SignOptions {
             type: "Color",
         },        
         {
-            name: "borderColor",
-            baseName: "borderColor",
-            type: "Color",
-        },        
-        {
             name: "backgroundColor",
             baseName: "backgroundColor",
             type: "Color",
@@ -2847,19 +3407,9 @@ export class SignTextOptions extends SignOptions {
             type: "Brush",
         },        
         {
-            name: "borderVisiblity",
-            baseName: "borderVisiblity",
-            type: "boolean",
-        },        
-        {
-            name: "borderDashStyle",
-            baseName: "borderDashStyle",
-            type: "SignTextOptions.BorderDashStyleEnum",
-        },        
-        {
-            name: "borderTransparency",
-            baseName: "borderTransparency",
-            type: "number",
+            name: "border",
+            baseName: "border",
+            type: "BorderLine",
         },        
         {
             name: "textHorizontalAlignment",
@@ -2870,6 +3420,11 @@ export class SignTextOptions extends SignOptions {
             name: "textVerticalAlignment",
             baseName: "textVerticalAlignment",
             type: "SignTextOptions.TextVerticalAlignmentEnum",
+        },        
+        {
+            name: "zOrder",
+            baseName: "zOrder",
+            type: "number",
         }    ];
 
     /**
@@ -2955,11 +3510,6 @@ export class SignTextOptions extends SignOptions {
     public foreColor: Color;
     
     /**
-     * Gets or sets the border color of signature
-     */
-    public borderColor: Color;
-    
-    /**
      * Gets or sets the background color of signature
      */
     public backgroundColor: Color;
@@ -2970,19 +3520,9 @@ export class SignTextOptions extends SignOptions {
     public backgroundBrush: Brush;
     
     /**
-     * Gets or sets the signature border visibility It is not suitable for PDF
+     * Gets or sets the signature border properties
      */
-    public borderVisiblity: boolean;
-    
-    /**
-     * Gets or sets the signature border style It is not suitable for PDF
-     */
-    public borderDashStyle: SignTextOptions.BorderDashStyleEnum;
-    
-    /**
-     * Gets or sets the signature border transparency (value from 0.0 (opaque) through 1.0 (clear)) It is not suitable for PDF
-     */
-    public borderTransparency: number;
+    public border: BorderLine;
     
     /**
      * Horizontal alignment of text inside a signature
@@ -2993,6 +3533,11 @@ export class SignTextOptions extends SignOptions {
      * Vertical alignment of text inside a signature
      */
     public textVerticalAlignment: SignTextOptions.TextVerticalAlignmentEnum;
+    
+    /**
+     * Gets or sets the Z-order position of text signature. Determines the display order of overlapping signatures.             
+     */
+    public zOrder: number;
     
     public constructor(init?: Partial<SignTextOptions>) {
         super(init);
@@ -3020,14 +3565,12 @@ export namespace SignTextOptions {
         PageArea = 'PageArea' as any,
     }
     export enum HorizontalAlignmentEnum {
-        Default = 'Default' as any,
         None = 'None' as any,
         Left = 'Left' as any,
         Center = 'Center' as any,
         Right = 'Right' as any,
     }
     export enum VerticalAlignmentEnum {
-        Default = 'Default' as any,
         None = 'None' as any,
         Top = 'Top' as any,
         Center = 'Center' as any,
@@ -3037,16 +3580,6 @@ export namespace SignTextOptions {
         Pixels = 'Pixels' as any,
         Percents = 'Percents' as any,
         Millimeters = 'Millimeters' as any,
-    }
-    export enum BorderDashStyleEnum {
-        Dash = 'Dash' as any,
-        DashDot = 'DashDot' as any,
-        DashDotDot = 'DashDotDot' as any,
-        DashLongDash = 'DashLongDash' as any,
-        DashLongDashDot = 'DashLongDashDot' as any,
-        RoundDot = 'RoundDot' as any,
-        Solid = 'Solid' as any,
-        SquareDot = 'SquareDot' as any,
     }
     export enum TextHorizontalAlignmentEnum {
         Left = 'Left' as any,
@@ -3075,8 +3608,8 @@ export class VerifyDigitalOptions extends VerifyOptions {
             type: "string",
         },        
         {
-            name: "certificateGuid",
-            baseName: "certificateGuid",
+            name: "certificateFilePath",
+            baseName: "certificateFilePath",
             type: "string",
         },        
         {
@@ -3125,7 +3658,7 @@ export class VerifyDigitalOptions extends VerifyOptions {
     /**
      * File Guid of Digital Certificate
      */
-    public certificateGuid: string;
+    public certificateFilePath: string;
     
     /**
      * Comments of Digital Signature to validate Suitable for Spreadsheet and Words Processing document types
@@ -3237,13 +3770,8 @@ export class SignBarcodeOptions extends SignTextOptions {
             type: "string",
         },        
         {
-            name: "borderWeight",
-            baseName: "borderWeight",
-            type: "number",
-        },        
-        {
-            name: "opacity",
-            baseName: "opacity",
+            name: "transparency",
+            baseName: "transparency",
             type: "number",
         },        
         {
@@ -3270,14 +3798,9 @@ export class SignBarcodeOptions extends SignTextOptions {
     public barcodeType: string;
     
     /**
-     * Gets or sets the weight of the signature border
+     * Gets or sets the signature transparency (value from 0.0 (opaque) through 1.0 (clear)). Default value is 0 (opaque).
      */
-    public borderWeight: number;
-    
-    /**
-     * Gets or sets the signature opacity (value from 0.0 (clear) through 1.0 (opaque)). By default the value is 1.0
-     */
-    public opacity: number;
+    public transparency: number;
     
     /**
      * Gets or sets the alignment of text in the result Barcode Default value is None
@@ -3316,14 +3839,39 @@ export class SignDigitalOptions extends SignImageOptions {
      */
     public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
         {
+            name: "reason",
+            baseName: "reason",
+            type: "string",
+        },        
+        {
+            name: "contact",
+            baseName: "contact",
+            type: "string",
+        },        
+        {
+            name: "location",
+            baseName: "location",
+            type: "string",
+        },        
+        {
+            name: "visible",
+            baseName: "visible",
+            type: "boolean",
+        },        
+        {
             name: "password",
             baseName: "password",
             type: "string",
         },        
         {
-            name: "certificateGuid",
-            baseName: "certificateGuid",
+            name: "certificateFilePath",
+            baseName: "certificateFilePath",
             type: "string",
+        },        
+        {
+            name: "xAdESType",
+            baseName: "xAdESType",
+            type: "SignDigitalOptions.XAdESTypeEnum",
         }    ];
 
     /**
@@ -3334,6 +3882,26 @@ export class SignDigitalOptions extends SignImageOptions {
     }
 
     /**
+     * Gets or sets the reason of signature.
+     */
+    public reason: string;
+    
+    /**
+     * Gets or sets the signature contact.
+     */
+    public contact: string;
+    
+    /**
+     * Gets or sets the signature location.
+     */
+    public location: string;
+    
+    /**
+     * Gets or sets the visibility of signature.
+     */
+    public visible: boolean;
+    
+    /**
      * Gets or sets the password of digital certificate
      */
     public password: string;
@@ -3341,7 +3909,12 @@ export class SignDigitalOptions extends SignImageOptions {
     /**
      * Gets or sets the digital certificate file GUID
      */
-    public certificateGuid: string;
+    public certificateFilePath: string;
+    
+    /**
+     * XAdES type GroupDocs.Signature.Options.DigitalSignOptions.XAdESType. Default value is None (XAdES is off). At this moment XAdES signature type is supported only for Spreadsheet documents.             
+     */
+    public xAdESType: SignDigitalOptions.XAdESTypeEnum;
     
     public constructor(init?: Partial<SignDigitalOptions>) {
         super(init);
@@ -3352,6 +3925,10 @@ export class SignDigitalOptions extends SignImageOptions {
 // tslint:disable:quotemark
 // tslint:disable-next-line:no-namespace
 export namespace SignDigitalOptions {
+    export enum XAdESTypeEnum {
+        None = 'None' as any,
+        XAdES = 'XAdES' as any,
+    }
 }
 // tslint:enable:quotemark
 /**
@@ -3369,13 +3946,8 @@ export class SignQRCodeOptions extends SignTextOptions {
             type: "string",
         },        
         {
-            name: "borderWeight",
-            baseName: "borderWeight",
-            type: "number",
-        },        
-        {
-            name: "opacity",
-            baseName: "opacity",
+            name: "transparency",
+            baseName: "transparency",
             type: "number",
         },        
         {
@@ -3389,8 +3961,8 @@ export class SignQRCodeOptions extends SignTextOptions {
             type: "Padding",
         },        
         {
-            name: "logoGuid",
-            baseName: "logoGuid",
+            name: "logoFilePath",
+            baseName: "logoFilePath",
             type: "string",
         }    ];
 
@@ -3407,14 +3979,9 @@ export class SignQRCodeOptions extends SignTextOptions {
     public qRCodeType: string;
     
     /**
-     * Gets or sets the weight of the signature border
+     * Gets or sets the signature transparency (value from 0.0 (opaque) through 1.0 (clear)). Default value is 0 (opaque).             
      */
-    public borderWeight: number;
-    
-    /**
-     * Gets or sets the signature opacity (value from 0.0 (clear) through 1.0 (opaque)) By default the value is 1.0
-     */
-    public opacity: number;
+    public transparency: number;
     
     /**
      * Gets or sets the alignment of text in the result QR-code Default value is None
@@ -3429,7 +3996,7 @@ export class SignQRCodeOptions extends SignTextOptions {
     /**
      * Gets or sets the QR-code logo image file name. This property in use only if LogoStream is not specified. Using of this property could cause problems with verification. Use it carefully
      */
-    public logoGuid: string;
+    public logoFilePath: string;
     
     public constructor(init?: Partial<SignQRCodeOptions>) {
         super(init);
@@ -3626,12 +4193,11 @@ export namespace VerifyQRCodeOptions {
 // tslint:enable:quotemark
 const enumsMap = {
     "BorderLine.StyleEnum": BorderLine.StyleEnum,
-    "OptionsBase.DocumentTypeEnum": OptionsBase.DocumentTypeEnum,
+    "DeleteOptions.SignatureTypeEnum": DeleteOptions.SignatureTypeEnum,
     "OptionsBase.SignatureTypeEnum": OptionsBase.SignatureTypeEnum,
-    "Signature.DocumentTypeEnum": Signature.DocumentTypeEnum,
     "Signature.SignatureTypeEnum": Signature.SignatureTypeEnum,
     "StampLine.TextRepeatTypeEnum": StampLine.TextRepeatTypeEnum,
-    "DigitalSignature.TypeEnum": DigitalSignature.TypeEnum,
+    "UpdateOptions.SignatureTypeEnum": UpdateOptions.SignatureTypeEnum,
     "SearchBarcodeOptions.MatchTypeEnum": SearchBarcodeOptions.MatchTypeEnum,
     "SearchQRCodeOptions.MatchTypeEnum": SearchQRCodeOptions.MatchTypeEnum,
     "SignImageOptions.LocationMeasureTypeEnum": SignImageOptions.LocationMeasureTypeEnum,
@@ -3645,11 +4211,11 @@ const enumsMap = {
     "SignTextOptions.HorizontalAlignmentEnum": SignTextOptions.HorizontalAlignmentEnum,
     "SignTextOptions.VerticalAlignmentEnum": SignTextOptions.VerticalAlignmentEnum,
     "SignTextOptions.MarginMeasureTypeEnum": SignTextOptions.MarginMeasureTypeEnum,
-    "SignTextOptions.BorderDashStyleEnum": SignTextOptions.BorderDashStyleEnum,
     "SignTextOptions.TextHorizontalAlignmentEnum": SignTextOptions.TextHorizontalAlignmentEnum,
     "SignTextOptions.TextVerticalAlignmentEnum": SignTextOptions.TextVerticalAlignmentEnum,
     "VerifyTextOptions.MatchTypeEnum": VerifyTextOptions.MatchTypeEnum,
     "SignBarcodeOptions.CodeTextAlignmentEnum": SignBarcodeOptions.CodeTextAlignmentEnum,
+    "SignDigitalOptions.XAdESTypeEnum": SignDigitalOptions.XAdESTypeEnum,
     "SignQRCodeOptions.CodeTextAlignmentEnum": SignQRCodeOptions.CodeTextAlignmentEnum,
     "SignStampOptions.BackgroundColorCropTypeEnum": SignStampOptions.BackgroundColorCropTypeEnum,
     "SignStampOptions.BackgroundImageCropTypeEnum": SignStampOptions.BackgroundImageCropTypeEnum,
@@ -3662,6 +4228,8 @@ const typeMap = {
             BorderLine,
             Brush,
             Color,
+            DeleteOptions,
+            DeleteResult,
             DiscUsage,
             ErrorDetails,
             FileInfo,
@@ -3687,10 +4255,14 @@ const typeMap = {
             StampLine,
             StorageExist,
             StorageFile,
+            UpdateOptions,
+            UpdateResult,
             VerifyResult,
             BarcodeSignature,
+            DeleteSettings,
             DigitalSignature,
             FileVersion,
+            ImageSignature,
             InfoSettings,
             LinearGradientBrush,
             QRCodeSignature,
@@ -3700,7 +4272,9 @@ const typeMap = {
             SignOptions,
             SignSettings,
             SolidBrush,
+            TextSignature,
             TextureBrush,
+            UpdateSettings,
             VerifyOptions,
             VerifySettings,
             SearchBarcodeOptions,
@@ -4033,6 +4607,20 @@ export class CreateSignaturesRequest {
 }
 
 /**
+ * Request model for DeleteSignatures operation.
+ */
+export class DeleteSignaturesRequest {
+    /**
+     * Delete signatures settings
+     */
+    public deleteSettings: DeleteSettings;
+    
+    public constructor(deleteSettings: DeleteSettings) {        
+        this.deleteSettings = deleteSettings;
+    }
+}
+
+/**
  * Request model for SearchSignatures operation.
  */
 export class SearchSignaturesRequest {
@@ -4043,6 +4631,20 @@ export class SearchSignaturesRequest {
     
     public constructor(searchSettings: SearchSettings) {        
         this.searchSettings = searchSettings;
+    }
+}
+
+/**
+ * Request model for UpdateSignatures operation.
+ */
+export class UpdateSignaturesRequest {
+    /**
+     * Update signatures settings
+     */
+    public updateSettings: UpdateSettings;
+    
+    public constructor(updateSettings: UpdateSettings) {        
+        this.updateSettings = updateSettings;
     }
 }
 

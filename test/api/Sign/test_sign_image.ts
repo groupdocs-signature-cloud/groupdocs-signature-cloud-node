@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2019 Aspose Pty Ltd
+* Copyright (c) 2003-2020 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,7 +43,7 @@ describe("sign_image_tests", () => {
     it("test_sign_image_image", async () => {  
         var testFile = TestFile.image_jpg;
         var signedFileName = "Output\\ImageImageSigned.jpg";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.Image, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
@@ -51,7 +51,7 @@ describe("sign_image_tests", () => {
     it("test_sign_image_pdf", async () => {  
         var testFile = TestFile.pdf_one_page;
         var signedFileName = "Output\\PdfImageSigned.pdf";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.Pdf, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
@@ -59,7 +59,7 @@ describe("sign_image_tests", () => {
     it("test_sign_image_presentation", async () => {  
         var testFile = TestFile.presentation_pptx;
         var signedFileName = "Output\\PresentationImageSigned.pptx";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.Presentation, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
@@ -67,7 +67,7 @@ describe("sign_image_tests", () => {
     it("test_sign_image_spreadsheet", async () => {  
         var testFile = TestFile.spreadsheet_xlsx;
         var signedFileName = "Output\\SpreadsheetImageSigned.xlsx";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.Spreadsheet, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
@@ -75,17 +75,16 @@ describe("sign_image_tests", () => {
     it("test_sign_image_wordprocessing", async () => {  
         var testFile = TestFile.word_docx;
         var signedFileName = "Output\\WordImageSigned.docx";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.WordProcessing, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
   
-    function populate_options(signedFileName: string, documentType: OptionsBase.DocumentTypeEnum, testFile: TestFile)
+    function populate_options(signedFileName: string, testFile: TestFile)
     {
         var opts = new SignImageOptions();
-        opts.documentType = documentType;
         opts.signatureType = OptionsBase.SignatureTypeEnum.Image;
-        opts.imageGuid = TestFile.image_sign.GetPath();
+        opts.imageFilePath = TestFile.image_sign.GetPath();
 
         // set signature position on a page
         opts.left = 100;
@@ -102,7 +101,7 @@ describe("sign_image_tests", () => {
         opts.marginMeasureType = SignTextOptions.MarginMeasureTypeEnum.Pixels;
 
         // set signature appearance
-        opts.opacity = 0.8;
+        opts.transparency = 0.8;
 
         opts.page = 1;
         opts.allPages = false;

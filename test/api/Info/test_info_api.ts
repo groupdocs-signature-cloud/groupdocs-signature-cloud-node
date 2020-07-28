@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2019 Aspose Pty Ltd
+* Copyright (c) 2003-2020 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -80,7 +80,7 @@ describe("info_api_tests", () => {
         var response = await TestContext.getInfoApi().getInfo(new GetInfoRequest(settings));
         expect(response.size).to.equal(55321);
         expect(response.extension).to.equal("pdf");
-        expect(response.fileFormat).to.equal("Pdf");
+        expect(response.fileFormat).to.equal("Portable Document Format File");
         expect(response.maxPageHeight).to.equal(792);
         expect(response.widthForMaxHeight).to.equal(612);
         expect(response.pagesCount).to.equal(1);

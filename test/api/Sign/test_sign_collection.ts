@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2019 Aspose Pty Ltd
+* Copyright (c) 2003-2020 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -44,7 +44,7 @@ describe("sign_collection_tests", () => {
     it("test_sign_collection_image", async () => {  
         var testFile = TestFile.image_jpg;
         var signedFileName = "Output\\ImageCollectionSigned.jpg";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.Image, testFile);
+        var settings = populate_options_image(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
@@ -52,7 +52,7 @@ describe("sign_collection_tests", () => {
     it("test_sign_collection_pdf", async () => {  
         var testFile = TestFile.pdf_one_page;
         var signedFileName = "Output\\PdfCollectionSigned.pdf";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.Pdf, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
@@ -60,7 +60,7 @@ describe("sign_collection_tests", () => {
     it("test_sign_collection_presentation", async () => {  
         var testFile = TestFile.presentation_pptx;
         var signedFileName = "Output\\PresentationCollectionSigned.pptx";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.Presentation, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
@@ -68,7 +68,7 @@ describe("sign_collection_tests", () => {
     it("test_sign_collection_spreadsheet", async () => {  
         var testFile = TestFile.spreadsheet_xlsx;
         var signedFileName = "Output\\SpreadsheetCollectionSigned.xlsx";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.Spreadsheet, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
@@ -76,15 +76,14 @@ describe("sign_collection_tests", () => {
     it("test_sign_collection_wordprocessing", async () => {  
         var testFile = TestFile.word_docx;
         var signedFileName = "Output\\WordCollectionSigned.docx";
-        var settings = populate_options(signedFileName, OptionsBase.DocumentTypeEnum.WordProcessing, testFile);
+        var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
     });
 
-    function barcode_opts(documentType: OptionsBase.DocumentTypeEnum)
+    function barcode_opts()
     {
         var opts = new SignBarcodeOptions();
-        opts.documentType = documentType;
         opts.signatureType = OptionsBase.SignatureTypeEnum.Barcode;
         opts.barcodeType = 'Code39Standard';
         opts.text = '123456789012';
@@ -108,16 +107,18 @@ describe("sign_collection_tests", () => {
         // set signature appearance
         opts.foreColor = new Color();
         opts.foreColor.web = "BlueViolet";
-        opts.borderColor = new Color();
-        opts.borderColor.web = "DarkOrange";
+        opts.border = new BorderLine();
+        opts.border.color = new Color();
+        opts.border.color.web = "DarkOrange";
+        opts.border.visible = true;
+        opts.border.style = BorderLine.StyleEnum.Dash;
+        opts.border.weight = 12;
+
         opts.backgroundColor = new Color();
         opts.backgroundColor.web = "DarkOrange";
-        opts.opacity = 0.8;
+        opts.transparency = 0.8;
         opts.innerMargins = new Padding();
         opts.innerMargins.all = 2;
-        opts.borderVisiblity = true;
-        opts.borderDashStyle = SignTextOptions.BorderDashStyleEnum.Dash;
-        opts.borderWeight = 12;
 
         opts.page = 1;
         opts.allPages = false;
@@ -132,10 +133,9 @@ describe("sign_collection_tests", () => {
         return opts;
     }    
 
-    function qr_code_opts(documentType: OptionsBase.DocumentTypeEnum)
+    function qr_code_opts()
     {
         var opts = new SignQRCodeOptions();
-        opts.documentType = documentType;
         opts.signatureType = OptionsBase.SignatureTypeEnum.QRCode;
         opts.qRCodeType = 'Aztec';
         opts.text = 'John Smith';
@@ -158,16 +158,18 @@ describe("sign_collection_tests", () => {
         // set signature appearance
         opts.foreColor = new Color();
         opts.foreColor.web = "BlueViolet";
-        opts.borderColor = new Color();
-        opts.borderColor.web = "DarkOrange";
+        opts.border = new BorderLine();
+        opts.border.color = new Color();
+        opts.border.color.web = "DarkOrange";
+        opts.border.visible = true;
+        opts.border.style = BorderLine.StyleEnum.Dash;
+        opts.border.weight = 12;
+
         opts.backgroundColor = new Color();
         opts.backgroundColor.web = "DarkOrange";
-        opts.opacity = 0.8;
+        opts.transparency = 0.8;
         opts.innerMargins = new Padding();
         opts.innerMargins.all = 2;
-        opts.borderVisiblity = true;
-        opts.borderDashStyle = SignTextOptions.BorderDashStyleEnum.Dash;
-        opts.borderWeight = 12;
 
         opts.page = 1;
         opts.allPages = false;
@@ -182,24 +184,22 @@ describe("sign_collection_tests", () => {
         return opts;
     }
 
-    function digital_opts(documentType: OptionsBase.DocumentTypeEnum)
+    function digital_opts()
     {
         var opts = new SignDigitalOptions();
-        opts.documentType = documentType;
         opts.signatureType = OptionsBase.SignatureTypeEnum.Digital;
-        opts.imageGuid = TestFile.additional_signature01.GetPath();
-        opts.certificateGuid = TestFile.additional_pfx.GetPath();
+        opts.imageFilePath = TestFile.additional_signature01.GetPath();
+        opts.certificateFilePath = TestFile.additional_pfx.GetPath();
         opts.password = "1234567890";
         
         return opts;
     }
 
-    function image_opts(documentType: OptionsBase.DocumentTypeEnum)
+    function image_opts()
     {
         var opts = new SignImageOptions();
-        opts.documentType = documentType;
         opts.signatureType = OptionsBase.SignatureTypeEnum.Image;
-        opts.imageGuid = TestFile.image_sign.GetPath();
+        opts.imageFilePath = TestFile.image_sign.GetPath();
 
         // set signature position on a page
         opts.left = 100;
@@ -216,7 +216,7 @@ describe("sign_collection_tests", () => {
         opts.marginMeasureType = SignTextOptions.MarginMeasureTypeEnum.Pixels;
 
         // set signature appearance
-        opts.opacity = 0.8;
+        opts.transparency = 0.8;
 
         opts.page = 1;
         opts.allPages = false;
@@ -231,10 +231,9 @@ describe("sign_collection_tests", () => {
         return opts;
     }    
 
-    function text_opts(documentType: OptionsBase.DocumentTypeEnum)
+    function text_opts()
     {
         var opts = new SignTextOptions();
-        opts.documentType = documentType;
         opts.signatureType = OptionsBase.SignatureTypeEnum.Text;        
         opts.text = 'John Smith';        
 
@@ -263,12 +262,14 @@ describe("sign_collection_tests", () => {
 
         opts.foreColor = new Color();
         opts.foreColor.web = "BlueViolet";
-        opts.borderColor = new Color();
-        opts.borderColor.web = "DarkOrange";
+        opts.border = new BorderLine();
+        opts.border.color = new Color();
+        opts.border.color.web = "DarkOrange";
+        opts.border.visible = true;
+        opts.border.style = BorderLine.StyleEnum.Dash;
+
         opts.backgroundColor = new Color();
-        opts.backgroundColor.web = "DarkOrange";
-        opts.borderVisiblity = true;
-        opts.borderDashStyle = SignTextOptions.BorderDashStyleEnum.Dash;        
+        opts.backgroundColor.web = "DarkOrange";    
 
         opts.page = 1;
         opts.allPages = false;
@@ -283,12 +284,11 @@ describe("sign_collection_tests", () => {
         return opts;
     }    
 
-    function stamp_opts(documentType: OptionsBase.DocumentTypeEnum)
+    function stamp_opts()
     {
         var opts = new SignStampOptions();
-        opts.documentType = documentType;
         opts.signatureType = OptionsBase.SignatureTypeEnum.Stamp;
-        opts.imageGuid = TestFile.image_sign.GetPath();
+        opts.imageFilePath = TestFile.image_sign.GetPath();
 
         // set signature position on a page
         opts.left = 100;
@@ -309,7 +309,7 @@ describe("sign_collection_tests", () => {
         opts.backgroundColor.web = "CornflowerBlue";
         opts.backgroundColorCropType = SignStampOptions.BackgroundColorCropTypeEnum.InnerArea;
         opts.backgroundImageCropType = SignStampOptions.BackgroundImageCropTypeEnum.MiddleArea;
-        opts.opacity = 0.8;
+        opts.transparency = 0.8;
 
         var outline = new StampLine();                
         outline.text = "John Smith";
@@ -384,23 +384,30 @@ describe("sign_collection_tests", () => {
         return opts;
     }    
 
-    function populate_options(signedFileName: string, documentType: OptionsBase.DocumentTypeEnum, testFile: TestFile)
+    function populate_options_image(signedFileName: string, testFile: TestFile)
     {
         var settings = new SignSettings();
         settings.fileInfo = testFile.ToFileInfo();
-        if (documentType == OptionsBase.DocumentTypeEnum.Image || documentType == OptionsBase.DocumentTypeEnum.Presentation)
-            settings.options = [barcode_opts(documentType),
-                                qr_code_opts(documentType),
-                                image_opts(documentType),
-                                stamp_opts(documentType),
-                                text_opts(documentType)];
-        else
-            settings.options = [barcode_opts(documentType),
-                                qr_code_opts(documentType),
-                                digital_opts(documentType),
-                                image_opts(documentType),
-                                stamp_opts(documentType),
-                                text_opts(documentType)];
+        settings.options = [barcode_opts(),
+                            qr_code_opts(),
+                            image_opts(),
+                            stamp_opts(),
+                            text_opts()];
+        settings.saveOptions = new SaveOptions();
+        settings.saveOptions.outputFilePath = signedFileName;
+        return settings;
+    }
+
+    function populate_options(signedFileName: string, testFile: TestFile)
+    {
+        var settings = new SignSettings();
+        settings.fileInfo = testFile.ToFileInfo();
+        settings.options = [barcode_opts(),
+                            qr_code_opts(),
+                            digital_opts(),
+                            image_opts(),
+                            stamp_opts(),
+                            text_opts()];
         settings.saveOptions = new SaveOptions();
         settings.saveOptions.outputFilePath = signedFileName;
         return settings;

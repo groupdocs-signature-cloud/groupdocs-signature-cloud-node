@@ -73,4 +73,4 @@ infoApi.getSupportedFileFormats()
 ## Licensing
 GroupDocs.Signature Cloud Node.js SDK licensed under [MIT License](LICENSE).
 
-[Home](https://www.groupdocs.cloud/) | [Docs](https://docs.groupdocs.cloud/signature/) | [Demos](https://products.groupdocs.app/signature/family) | [API Reference](https://apireference.groupdocs.cloud/signature/) | [Examples](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-node) | [Blog](https://blog.groupdocs.cloud/category/signature/) | [Free Support](https://forum.groupdocs.cloud/c/signature) | [Free Trial](https://purchase.groupdocs.cloud/trial)
+[Home](https://www.groupdocs.cloud/) | [Product Page](https://products.groupdocs.cloud/signature/nodejs) | [Docs](https://docs.groupdocs.cloud/signature/) | [Demos](https://products.groupdocs.app/signature/family) | [API Reference](https://apireference.groupdocs.cloud/signature/) | [Examples](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-node-samples) | [Blog](https://blog.groupdocs.cloud/category/signature/) | [Free Support](https://forum.groupdocs.cloud/c/signature) | [Free Trial](https://purchase.groupdocs.cloud/trial)

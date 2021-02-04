@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/api-v2.0-lightgrey) ![npm](https://img.shields.io/npm/v/groupdocs-signature-cloud) ![npm bundle size](https://img.shields.io/bundlephobia/min/groupdocs-signature-cloud) ![node-current](https://img.shields.io/node/v/groupdocs-signature-cloud) ![npm type definitions](https://img.shields.io/npm/types/groupdocs-signature-cloud) [![GitHub license](https://img.shields.io/github/license/groupdocs-signature-cloud/groupdocs-signature-cloud-node)](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-node/blob/master/LICENSE) 
+![](https://img.shields.io/badge/api-v2.0-lightgrey) ![npm](https://img.shields.io/npm/v/groupdocs-signature-cloud) ![npm bundle size](https://img.shields.io/bundlephobia/min/groupdocs-signature-cloud) ![node-current](https://img.shields.io/node/v/groupdocs-signature-cloud) ![npm type definitions](https://img.shields.io/npm/types/groupdocs-signature-cloud) [![GitHub license](https://img.shields.io/github/license/groupdocs-signature-cloud/groupdocs-signature-cloud-node)](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-node/blob/master/LICENSE)
 
 # Node.js SDK to Document Signature REST API
 
@@ -20,11 +20,11 @@ Check out the [Developer's Guide](https://docs.groupdocs.cloud/signature/develop
 
 ## Supported Signature Types
 
-- **Text Signature** 
-- **Image Signature** 
-- **Barcode Signature** 
+- **Text Signature**
+- **Image Signature**
+- **Barcode Signature**
 - **QR-Code Signature**
-- **Digital Signature** 
+- **Digital Signature**
 - **Stamp Signature**
 
 ## Microsoft Office Formats
@@ -54,48 +54,17 @@ npm install groupdocs-signature-cloud
 
 ## Get Supported File Formats for e-Signature
 
-```js
-// load the module
-var GroupDocs = require('groupdocs-signature-cloud');
-
-// get your appSid and appKey at https://dashboard.groupdocs.cloud (free registration is required).
-var appSid = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
-var appKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-
-// construct SignatureApi
-var config = new GroupDocs.Configuration(appSid, appKey);
-config.apiBaseUrl = "https://api.groupdocs.cloud";
-
-var infoApi = GroupDocs.InfoApi.fromConfig(config);
-
-// retrieve supported file-formats
-infoApi.getSupportedFileFormats()
-    .then(function (response) {
-        console.log("Supported file-formats:")
-        response.formats.forEach(function (format) {
-            console.log(format.fileFormat + " (" + format.extension + ")");
-        });
-    })
-    .catch(function (error) {
-        console.log("Error: " + error.message)
-    });
-```
-
-Or compile and run same written in TypeScript:
-
 ```ts
-// load the module
-import { InfoApi, Configuration } from "groupdocs-signature-cloud";
+// Get your application information from https://dashboard.groupdocs.cloud
+signature_cloud = require("groupdocs-signature-cloud");
 
-// get your appSid and appKey at https://dashboard.groupdocs.cloud (free registration is required).
-const appSid: string = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
-const appKey: string = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+// Get Client Id and Client Secret from https://dashboard.groupdocs.cloud
+const myClientId: string = "";
+const myClientSecret: string = "";
 
-// construct Api
-const config = new Configuration(appSid, appKey);
-config.apiBaseUrl = "https://api.groupdocs.cloud";
-
-const infoApi = InfoApi.fromConfig(config);
+// Create instance of the API
+const configuration: Configuration = signature_cloud.Configuration(myClientId, myClientSecret);
+const infoApi: InfoApi = InfoApi.fromConfig(configuration);
 
 // retrieve supported file-formats
 infoApi.getSupportedFileFormats()
@@ -116,6 +85,6 @@ infoApi.getSupportedFileFormats()
 | .NET | Java | PHP | Python | Ruby | Node.js |
 |---|---|---|---|---|---|
 | [GitHub](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-dotnet) | [GitHub](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-java) | [GitHub](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-php) | [GitHub](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-python) | [GitHub](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-ruby)  | [GitHub](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-node) |
-| [NuGet](https://www.nuget.org/packages/GroupDocs.Signature-Cloud/) | [Maven](https://repository.groupdocs.cloud/webapp/#/artifacts/browse/tree/General/repo/com/groupdocs/groupdocs-signature-cloud) | [Composer](https://packagist.org/packages/groupdocscloud/groupdocs-signature-cloud) | [PIP](https://pypi.org/project/groupdocs-signature-cloud/) | [GEM](https://rubygems.org/gems/groupdocs_signature_cloud)  | [NPM](https://www.npmjs.com/package/groupdocs-signature-cloud) | 
+| [NuGet](https://www.nuget.org/packages/GroupDocs.Signature-Cloud/) | [Maven](https://repository.groupdocs.cloud/webapp/#/artifacts/browse/tree/General/repo/com/groupdocs/groupdocs-signature-cloud) | [Composer](https://packagist.org/packages/groupdocscloud/groupdocs-signature-cloud) | [PIP](https://pypi.org/project/groupdocs-signature-cloud/) | [GEM](https://rubygems.org/gems/groupdocs_signature_cloud)  | [NPM](https://www.npmjs.com/package/groupdocs-signature-cloud) |
 
 [Home](https://www.groupdocs.cloud/) | [Product Page](https://products.groupdocs.cloud/signature/nodejs) | [Documentation](https://docs.groupdocs.cloud/signature/) | [Live Demo](https://products.groupdocs.app/signature/total) | [API Reference](https://apireference.groupdocs.cloud/signature/) | [Code Samples](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-node-samples) | [Blog](https://blog.groupdocs.cloud/category/signature/) | [Free Support](https://forum.groupdocs.cloud/c/signature) | [Free Trial](https://dashboard.groupdocs.cloud)

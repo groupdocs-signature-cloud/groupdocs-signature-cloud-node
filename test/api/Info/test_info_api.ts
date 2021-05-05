@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2020 Aspose Pty Ltd
+* Copyright (c) 2003-2021 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@ import { expect } from "chai";
 import "mocha";
 import * as TestContext from "../../test_context";
 import { TestFile } from "../../test_file";
-import { GetInfoRequest, InfoSettings } from "../../../src/model";
+import { FileInfo, GetInfoRequest, InfoSettings } from "../../../src/model";
 
 describe("info_api_tests", () => {
     
@@ -86,5 +86,17 @@ describe("info_api_tests", () => {
         expect(response.pagesCount).to.equal(1);
         expect(response.fileInfo.filePath).to.equal(testFile.GetPath());
     });
+
+    it("test_get_info_returns_file_not_found", async () => {  
+        var settings = new InfoSettings();
+        settings.fileInfo = new FileInfo();
+        settings.fileInfo.filePath = "some-folder/NotExist.docx";            
+        try {
+            let response = await TestContext.getInfoApi().getInfo(new GetInfoRequest(settings));
+            expect(response.pagesCount).equal(1);
+        } catch (error) {
+            expect(error.message).equal("Can\'t find file located at \'some-folder/NotExist.docx\'.");
+        }
+    });             
  
 });

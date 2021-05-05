@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2020 Aspose Pty Ltd
+* Copyright (c) 2003-2021 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -378,7 +378,7 @@ export class DeleteResult {
     }
 
     /**
-     * Source document basic info
+     * Source document file info
      */
     public fileInfo: FileInfo;
     
@@ -805,7 +805,7 @@ export class InfoResult {
     }
 
     /**
-     * File info
+     * Input File info
      */
     public fileInfo: FileInfo;
     
@@ -1273,6 +1273,224 @@ export class PagesSetup {
 }
 
 /**
+ * Contains pdf digital Signature properties
+ */
+export class PdfDigitalSignature {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "contactInfo",
+            baseName: "contactInfo",
+            type: "string",
+        },        
+        {
+            name: "location",
+            baseName: "location",
+            type: "string",
+        },        
+        {
+            name: "reason",
+            baseName: "reason",
+            type: "string",
+        },        
+        {
+            name: "type",
+            baseName: "type",
+            type: "PdfDigitalSignature.TypeEnum",
+        },        
+        {
+            name: "timeStamp",
+            baseName: "timeStamp",
+            type: "TimeStamp",
+        },        
+        {
+            name: "showProperties",
+            baseName: "showProperties",
+            type: "boolean",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return PdfDigitalSignature.attributeTypeMap;
+    }
+
+    /**
+     * Information provided by the signer to enable a recipient to contact the signer
+     */
+    public contactInfo: string;
+    
+    /**
+     * The CPU host name or physical location of the signing.
+     */
+    public location: string;
+    
+    /**
+     * The reason for the signing, such as (I agreeРІР‚В¦).
+     */
+    public reason: string;
+    
+    /**
+     * Type of Pdf digital signature.
+     */
+    public type: PdfDigitalSignature.TypeEnum;
+    
+    /**
+     * Time stamp for Pdf digital signature. Default value is null.
+     */
+    public timeStamp: TimeStamp;
+    
+    /**
+     * Force to show/hide signature properties
+     */
+    public showProperties: boolean;
+    
+    public constructor(init?: Partial<PdfDigitalSignature>) {
+        
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace PdfDigitalSignature {
+    export enum TypeEnum {
+        Signature = 'Signature' as any,
+        Certificate = 'Certificate' as any,
+    }
+}
+// tslint:enable:quotemark
+/**
+ * Document preview page
+ */
+export class PreviewPage {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "pageNumber",
+            baseName: "pageNumber",
+            type: "number",
+        },        
+        {
+            name: "filePath",
+            baseName: "filePath",
+            type: "string",
+        },        
+        {
+            name: "size",
+            baseName: "size",
+            type: "number",
+        },        
+        {
+            name: "downloadUrl",
+            baseName: "downloadUrl",
+            type: "string",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return PreviewPage.attributeTypeMap;
+    }
+
+    /**
+     * Page number
+     */
+    public pageNumber: number;
+    
+    /**
+     * Page file path in storage
+     */
+    public filePath: string;
+    
+    /**
+     * Page file size
+     */
+    public size: number;
+    
+    /**
+     * Download url
+     */
+    public downloadUrl: string;
+    
+    public constructor(init?: Partial<PreviewPage>) {
+        
+        Object.assign(this, init);
+    }        
+}
+
+/**
+ * Document preview result
+ */
+export class PreviewResult {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "fileInfo",
+            baseName: "fileInfo",
+            type: "FileInfo",
+        },        
+        {
+            name: "size",
+            baseName: "size",
+            type: "number",
+        },        
+        {
+            name: "pagesCount",
+            baseName: "pagesCount",
+            type: "number",
+        },        
+        {
+            name: "pages",
+            baseName: "pages",
+            type: "Array<PreviewPage>",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return PreviewResult.attributeTypeMap;
+    }
+
+    /**
+     * Input File info
+     */
+    public fileInfo: FileInfo;
+    
+    /**
+     * Input File size
+     */
+    public size: number;
+    
+    /**
+     * Count of pages
+     */
+    public pagesCount: number;
+    
+    /**
+     * Document preview pages
+     */
+    public pages: Array<PreviewPage>;
+    
+    public constructor(init?: Partial<PreviewResult>) {
+        
+        Object.assign(this, init);
+    }        
+}
+
+/**
  * Describes QR-code type
  */
 export class QRCodeType {
@@ -1487,7 +1705,7 @@ export class SignResult {
     }
 
     /**
-     * Source document basic info
+     * Signed file info
      */
     public fileInfo: FileInfo;
     
@@ -1967,6 +2185,59 @@ export class StorageFile {
 }
 
 /**
+ * Represents data to get time stamp from third-party site.
+ */
+export class TimeStamp {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "url",
+            baseName: "url",
+            type: "string",
+        },        
+        {
+            name: "user",
+            baseName: "user",
+            type: "string",
+        },        
+        {
+            name: "password",
+            baseName: "password",
+            type: "string",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return TimeStamp.attributeTypeMap;
+    }
+
+    /**
+     * Url of third-party site.
+     */
+    public url: string;
+    
+    /**
+     * User.
+     */
+    public user: string;
+    
+    /**
+     * Password.
+     */
+    public password: string;
+    
+    public constructor(init?: Partial<TimeStamp>) {
+        
+        Object.assign(this, init);
+    }        
+}
+
+/**
  * Base container class for update signature options
  */
 export class UpdateOptions {
@@ -2121,7 +2392,7 @@ export class UpdateResult {
     }
 
     /**
-     * Source document basic info
+     * Updated document file info
      */
     public fileInfo: FileInfo;
     
@@ -2179,7 +2450,7 @@ export class VerifyResult {
     }
 
     /**
-     * Processed document basic info
+     * Processed document file info
      */
     public fileInfo: FileInfo;
     
@@ -2313,6 +2584,11 @@ export class DigitalSignature extends Signature {
             name: "signTime",
             baseName: "signTime",
             type: "Date",
+        },        
+        {
+            name: "pdfDigitalSignature",
+            baseName: "pdfDigitalSignature",
+            type: "PdfDigitalSignature",
         }    ];
 
     /**
@@ -2336,6 +2612,11 @@ export class DigitalSignature extends Signature {
      * Gets or sets the time the document was signed
      */
     public signTime: Date;
+    
+    /**
+     * Pdf digital signature properties
+     */
+    public pdfDigitalSignature: PdfDigitalSignature;
     
     public constructor(init?: Partial<DigitalSignature>) {
         super(init);
@@ -2516,6 +2797,99 @@ export class LinearGradientBrush extends Brush {
     }        
 }
 
+/**
+ * Defines preview request settings
+ */
+export class PreviewSettings extends BaseSettings {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "width",
+            baseName: "width",
+            type: "number",
+        },        
+        {
+            name: "height",
+            baseName: "height",
+            type: "number",
+        },        
+        {
+            name: "pageNumbers",
+            baseName: "pageNumbers",
+            type: "Array<number>",
+        },        
+        {
+            name: "previewFormat",
+            baseName: "previewFormat",
+            type: "PreviewSettings.PreviewFormatEnum",
+        },        
+        {
+            name: "hideSignatures",
+            baseName: "hideSignatures",
+            type: "boolean",
+        },        
+        {
+            name: "outputPath",
+            baseName: "outputPath",
+            type: "string",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(PreviewSettings.attributeTypeMap);
+    }
+
+    /**
+     * Preview images width
+     */
+    public width: number;
+    
+    /**
+     * Preview images height
+     */
+    public height: number;
+    
+    /**
+     * Preview page numbers
+     */
+    public pageNumbers: Array<number>;
+    
+    /**
+     * Preview format
+     */
+    public previewFormat: PreviewSettings.PreviewFormatEnum;
+    
+    /**
+     * Flag to hide signatures from page preview image. Only signatures are marked as IsSignature will be hidden from generated document page image
+     */
+    public hideSignatures: boolean;
+    
+    /**
+     * Set path for output pages. If not set then default path used.
+     */
+    public outputPath: string;
+    
+    public constructor(init?: Partial<PreviewSettings>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace PreviewSettings {
+    export enum PreviewFormatEnum {
+        PNG = 'PNG' as any,
+        JPEG = 'JPEG' as any,
+        BMP = 'BMP' as any,
+    }
+}
+// tslint:enable:quotemark
 /**
  * Contains QRCode signature properties
  */
@@ -3425,6 +3799,11 @@ export class SignTextOptions extends SignOptions {
             name: "zOrder",
             baseName: "zOrder",
             type: "number",
+        },        
+        {
+            name: "native",
+            baseName: "native",
+            type: "boolean",
         }    ];
 
     /**
@@ -3538,6 +3917,11 @@ export class SignTextOptions extends SignOptions {
      * Gets or sets the Z-order position of text signature. Determines the display order of overlapping signatures.             
      */
     public zOrder: number;
+    
+    /**
+     * Gets or sets the native attribute. If it is set document specific signatures could be used. Native text watermark for WordProcessing documents is different than regular, for example.             
+     */
+    public native: boolean;
     
     public constructor(init?: Partial<SignTextOptions>) {
         super(init);
@@ -4195,9 +4579,11 @@ const enumsMap = {
     "BorderLine.StyleEnum": BorderLine.StyleEnum,
     "DeleteOptions.SignatureTypeEnum": DeleteOptions.SignatureTypeEnum,
     "OptionsBase.SignatureTypeEnum": OptionsBase.SignatureTypeEnum,
+    "PdfDigitalSignature.TypeEnum": PdfDigitalSignature.TypeEnum,
     "Signature.SignatureTypeEnum": Signature.SignatureTypeEnum,
     "StampLine.TextRepeatTypeEnum": StampLine.TextRepeatTypeEnum,
     "UpdateOptions.SignatureTypeEnum": UpdateOptions.SignatureTypeEnum,
+    "PreviewSettings.PreviewFormatEnum": PreviewSettings.PreviewFormatEnum,
     "SearchBarcodeOptions.MatchTypeEnum": SearchBarcodeOptions.MatchTypeEnum,
     "SearchQRCodeOptions.MatchTypeEnum": SearchQRCodeOptions.MatchTypeEnum,
     "SignImageOptions.LocationMeasureTypeEnum": SignImageOptions.LocationMeasureTypeEnum,
@@ -4245,6 +4631,9 @@ const typeMap = {
             Padding,
             PageInfo,
             PagesSetup,
+            PdfDigitalSignature,
+            PreviewPage,
+            PreviewResult,
             QRCodeType,
             QRCodesResult,
             SaveOptions,
@@ -4255,6 +4644,7 @@ const typeMap = {
             StampLine,
             StorageExist,
             StorageFile,
+            TimeStamp,
             UpdateOptions,
             UpdateResult,
             VerifyResult,
@@ -4265,6 +4655,7 @@ const typeMap = {
             ImageSignature,
             InfoSettings,
             LinearGradientBrush,
+            PreviewSettings,
             QRCodeSignature,
             RadialGradientBrush,
             SearchOptions,
@@ -4589,6 +4980,20 @@ export class GetInfoRequest {
     
     public constructor(infoSettings: InfoSettings) {        
         this.infoSettings = infoSettings;
+    }
+}
+
+/**
+ * Request model for PreviewDocument operation.
+ */
+export class PreviewDocumentRequest {
+    /**
+     * Document preview settings
+     */
+    public previewSettings: PreviewSettings;
+    
+    public constructor(previewSettings: PreviewSettings) {        
+        this.previewSettings = previewSettings;
     }
 }
 

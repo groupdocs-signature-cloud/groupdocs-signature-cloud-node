@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2020 Aspose Pty Ltd
+* Copyright (c) 2003-2021 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -582,6 +582,72 @@ export class InfoApi {
 
         const response = await invokeApiMethod(requestOptions, this.configuration);
         const result =  Serializer.deserialize(response.body, "QRCodesResult");
+        return Promise.resolve(result);
+    }
+
+}
+/**
+ * GroupDocs.Signature Cloud API 
+ */
+export class PreviewApi {
+    
+    /**
+     * Creates new instance of PreviewApi
+     * @param appSid Application identifier (App SID).
+     * @param appKey Application private key (App Key).
+     */
+    public static fromKeys(appSid: string, appKey: string) {
+        const config = new Configuration(appSid, appKey);
+        return new PreviewApi(config);
+    }
+
+    /**
+     * Creates new instance of PreviewApi
+     * @param config API configuration.
+     */
+    public static fromConfig(config: Configuration) {
+        return new PreviewApi(config);
+    }
+
+    /**
+     * Configuration
+     */
+    private configuration: Configuration;
+
+    /**
+     * @param config Configuration.
+     */
+    private constructor(config: Configuration) {
+        this.configuration = config;
+    }
+
+    /**
+     * Creates document preview images
+     * @param requestObj contains request parameters
+     */
+    public async previewDocument(requestObj: model.PreviewDocumentRequest): Promise<model.PreviewResult> {
+        if (requestObj === null || requestObj === undefined) {
+            throw new Error('Required parameter "requestObj" was null or undefined when calling previewDocument.');
+        }
+
+        const localVarPath = this.configuration.getServerUrl() + "/signature/preview";
+        const queryParameters: any = {};
+
+        // verify required parameter 'requestObj.previewSettings' is not null or undefined
+        if (requestObj.previewSettings === null || requestObj.previewSettings === undefined) {
+            throw new Error('Required parameter "requestObj.previewSettings" was null or undefined when calling previewDocument.');
+        }
+        
+        const requestOptions: request.Options = {
+            method: "POST",
+            qs: queryParameters,
+            uri: localVarPath,
+            json: true,
+            body: Serializer.serialize(requestObj.previewSettings, requestObj.previewSettings.constructor.name === "Object" ? "PreviewSettings" : requestObj.previewSettings.constructor.name),
+        };
+
+        const response = await invokeApiMethod(requestOptions, this.configuration);
+        const result =  Serializer.deserialize(response.body, "PreviewResult");
         return Promise.resolve(result);
     }
 

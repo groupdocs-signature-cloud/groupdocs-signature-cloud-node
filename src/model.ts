@@ -337,6 +337,8 @@ export namespace DeleteOptions {
         Barcode = 'Barcode' as any,
         QRCode = 'QRCode' as any,
         Stamp = 'Stamp' as any,
+        FormField = 'FormField' as any,
+        Metadata = 'Metadata' as any,
     }
 }
 // tslint:enable:quotemark
@@ -795,6 +797,11 @@ export class InfoResult {
             name: "pages",
             baseName: "pages",
             type: "Array<PageInfo>",
+        },        
+        {
+            name: "signatures",
+            baseName: "signatures",
+            type: "Array<Signature>",
         }    ];
 
     /**
@@ -853,6 +860,11 @@ export class InfoResult {
      * List of document pages descriptions
      */
     public pages: Array<PageInfo>;
+    
+    /**
+     * Collection of document signatures
+     */
+    public signatures: Array<Signature>;
     
     public constructor(init?: Partial<InfoResult>) {
         
@@ -1040,6 +1052,8 @@ export namespace OptionsBase {
         Barcode = 'Barcode' as any,
         QRCode = 'QRCode' as any,
         Stamp = 'Stamp' as any,
+        FormField = 'FormField' as any,
+        Metadata = 'Metadata' as any,
     }
 }
 // tslint:enable:quotemark
@@ -1869,6 +1883,54 @@ export namespace Signature {
         Barcode = 'Barcode' as any,
         QRCode = 'QRCode' as any,
         Stamp = 'Stamp' as any,
+        FormField = 'FormField' as any,
+        Metadata = 'Metadata' as any,
+    }
+}
+// tslint:enable:quotemark
+/**
+ * Appearance is a base class for keeping additional information for various options
+ */
+export class SignatureAppearance {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "appearanceType",
+            baseName: "appearanceType",
+            type: "SignatureAppearance.AppearanceTypeEnum",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return SignatureAppearance.attributeTypeMap;
+    }
+
+    /**
+     * Specifies the type of appearance
+     */
+    public appearanceType: SignatureAppearance.AppearanceTypeEnum;
+    
+    public constructor(init?: Partial<SignatureAppearance>) {
+        
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace SignatureAppearance {
+    export enum AppearanceTypeEnum {
+        Undefined = 'Undefined' as any,
+        PdfTextAnnotation = 'PdfTextAnnotation' as any,
+        PdfTextSticker = 'PdfTextSticker' as any,
+        Image = 'Image' as any,
+        DigitalSignature = 'DigitalSignature' as any,
+        PdfDigitalSignature = 'PdfDigitalSignature' as any,
     }
 }
 // tslint:enable:quotemark
@@ -2351,6 +2413,8 @@ export namespace UpdateOptions {
         Barcode = 'Barcode' as any,
         QRCode = 'QRCode' as any,
         Stamp = 'Stamp' as any,
+        FormField = 'FormField' as any,
+        Metadata = 'Metadata' as any,
     }
 }
 // tslint:enable:quotemark
@@ -2630,6 +2694,64 @@ export namespace DigitalSignature {
 }
 // tslint:enable:quotemark
 /**
+ * Describes appearance of Signature Line for Digital Signature. One Signature Line could be applied for only one Digital Signature. Signature Line always is on the first page. This feature may be useful for .docx, .doc, .odt and .xlsx file formats.
+ */
+export class DigitalSignatureAppearance extends SignatureAppearance {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "email",
+            baseName: "email",
+            type: "string",
+        },        
+        {
+            name: "signer",
+            baseName: "signer",
+            type: "string",
+        },        
+        {
+            name: "title",
+            baseName: "title",
+            type: "string",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(DigitalSignatureAppearance.attributeTypeMap);
+    }
+
+    /**
+     * Gets or sets a email that will be displayed in signature line.
+     */
+    public email: string;
+    
+    /**
+     * Gets or sets signer name for signature line.
+     */
+    public signer: string;
+    
+    /**
+     * Gets or sets a title for signature line.
+     */
+    public title: string;
+    
+    public constructor(init?: Partial<DigitalSignatureAppearance>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace DigitalSignatureAppearance {
+}
+// tslint:enable:quotemark
+/**
  * File Version
  */
 export class FileVersion extends StorageFile {
@@ -2672,6 +2794,130 @@ export class FileVersion extends StorageFile {
     }        
 }
 
+/**
+ * Contains Form field signature properties
+ */
+export class FormFieldSignature extends Signature {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "name",
+            baseName: "name",
+            type: "string",
+        },        
+        {
+            name: "type",
+            baseName: "type",
+            type: "FormFieldSignature.TypeEnum",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(FormFieldSignature.attributeTypeMap);
+    }
+
+    /**
+     * Specifies unique form field name
+     */
+    public name: string;
+    
+    /**
+     * Specifies Form field type
+     */
+    public type: FormFieldSignature.TypeEnum;
+    
+    public constructor(init?: Partial<FormFieldSignature>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace FormFieldSignature {
+    export enum TypeEnum {
+        Text = 'Text' as any,
+        Checkbox = 'Checkbox' as any,
+        Combobox = 'Combobox' as any,
+        DigitalSignature = 'DigitalSignature' as any,
+        Radio = 'Radio' as any,
+        None = 'None' as any,
+    }
+}
+// tslint:enable:quotemark
+/**
+ * Describes extended appearance features for Image Signature.
+ */
+export class ImageAppearance extends SignatureAppearance {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "brightness",
+            baseName: "brightness",
+            type: "number",
+        },        
+        {
+            name: "contrast",
+            baseName: "contrast",
+            type: "number",
+        },        
+        {
+            name: "gammaCorrection",
+            baseName: "gammaCorrection",
+            type: "number",
+        },        
+        {
+            name: "grayscale",
+            baseName: "grayscale",
+            type: "boolean",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(ImageAppearance.attributeTypeMap);
+    }
+
+    /**
+     * Gets or sets image brightness. Default value is 1 it corresponds to original brightness of image.
+     */
+    public brightness: number;
+    
+    /**
+     * Gets or sets image contrast. Default value is 1 it corresponds to original contrast of image.
+     */
+    public contrast: number;
+    
+    /**
+     * Gets or sets image gamma. Default value is 1 it corresponds to original gamma of image.
+     */
+    public gammaCorrection: number;
+    
+    /**
+     * Setup this flag to true if gray-scale filter is required.
+     */
+    public grayscale: boolean;
+    
+    public constructor(init?: Partial<ImageAppearance>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace ImageAppearance {
+}
+// tslint:enable:quotemark
 /**
  * Contains Image signature properties             
  */
@@ -2729,7 +2975,11 @@ export class InfoSettings extends BaseSettings {
      * Attribute type map
      */
     public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-    ];
+        {
+            name: "showDeletedSignaturesInfo",
+            baseName: "showDeletedSignaturesInfo",
+            type: "boolean",
+        }    ];
 
     /**
      * Returns attribute type map
@@ -2738,6 +2988,11 @@ export class InfoSettings extends BaseSettings {
         return super.getAttributeTypeMap().concat(InfoSettings.attributeTypeMap);
     }
 
+    /**
+     * Gets or sets flag that includes deleted signatures into Document Info result.
+     */
+    public showDeletedSignaturesInfo: boolean;
+    
     public constructor(init?: Partial<InfoSettings>) {
         super(init);
         Object.assign(this, init);
@@ -2797,6 +3052,317 @@ export class LinearGradientBrush extends Brush {
     }        
 }
 
+/**
+ * Describes appearance of Digital Signature are on PDF documents.
+ */
+export class PdfDigitalSignatureAppearance extends SignatureAppearance {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "background",
+            baseName: "background",
+            type: "Color",
+        },        
+        {
+            name: "contactInfoLabel",
+            baseName: "contactInfoLabel",
+            type: "string",
+        },        
+        {
+            name: "dateSignedAtLabel",
+            baseName: "dateSignedAtLabel",
+            type: "string",
+        },        
+        {
+            name: "digitalSignedLabel",
+            baseName: "digitalSignedLabel",
+            type: "string",
+        },        
+        {
+            name: "fontFamilyName",
+            baseName: "fontFamilyName",
+            type: "string",
+        },        
+        {
+            name: "fontSize",
+            baseName: "fontSize",
+            type: "number",
+        },        
+        {
+            name: "locationLabel",
+            baseName: "locationLabel",
+            type: "string",
+        },        
+        {
+            name: "reasonLabel",
+            baseName: "reasonLabel",
+            type: "string",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(PdfDigitalSignatureAppearance.attributeTypeMap);
+    }
+
+    /**
+     * Get or set background color of signature appearance. By default the value is SystemColors.Windows
+     */
+    public background: Color;
+    
+    /**
+     * Gets or sets contact info label. Default value: \"Contact\". if this value is empty then no contact label will appear on digital signature area.             
+     */
+    public contactInfoLabel: string;
+    
+    /**
+     * Gets or sets date signed label. Default value: \"Date\".
+     */
+    public dateSignedAtLabel: string;
+    
+    /**
+     * Gets or sets digital signed label. Default value: \"Digitally signed by\".
+     */
+    public digitalSignedLabel: string;
+    
+    /**
+     * Gets or sets the Font family name to display the labels. Default value is \"Arial\".
+     */
+    public fontFamilyName: string;
+    
+    /**
+     * Gets or sets the Font size to display the labels. Default value is 10.
+     */
+    public fontSize: number;
+    
+    /**
+     * Gets or sets location label. Default value: \"Location\". if this value is empty then no location label will appear on digital signature area.
+     */
+    public locationLabel: string;
+    
+    /**
+     * Gets or sets reason label. Default value: \"Reason\". if this value is empty then no reason label will appear on digital signature area.
+     */
+    public reasonLabel: string;
+    
+    public constructor(init?: Partial<PdfDigitalSignatureAppearance>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace PdfDigitalSignatureAppearance {
+}
+// tslint:enable:quotemark
+/**
+ * Describes appearance of PDF text annotation object (Title, Subject, Content).
+ */
+export class PdfTextAnnotationAppearance extends SignatureAppearance {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "border",
+            baseName: "border",
+            type: "BorderLine",
+        },        
+        {
+            name: "borderEffect",
+            baseName: "borderEffect",
+            type: "PdfTextAnnotationAppearance.BorderEffectEnum",
+        },        
+        {
+            name: "borderEffectIntensity",
+            baseName: "borderEffectIntensity",
+            type: "number",
+        },        
+        {
+            name: "contents",
+            baseName: "contents",
+            type: "string",
+        },        
+        {
+            name: "hCornerRadius",
+            baseName: "hCornerRadius",
+            type: "number",
+        },        
+        {
+            name: "subject",
+            baseName: "subject",
+            type: "string",
+        },        
+        {
+            name: "title",
+            baseName: "title",
+            type: "string",
+        },        
+        {
+            name: "vCornerRadius",
+            baseName: "vCornerRadius",
+            type: "number",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(PdfTextAnnotationAppearance.attributeTypeMap);
+    }
+
+    /**
+     * Represents border appearance
+     */
+    public border: BorderLine;
+    
+    /**
+     * Gets or sets border effect.
+     */
+    public borderEffect: PdfTextAnnotationAppearance.BorderEffectEnum;
+    
+    /**
+     * Gets or sets border effect intensity. Valid range of value is [0..2].
+     */
+    public borderEffectIntensity: number;
+    
+    /**
+     * Gets or sets content of annotation object.
+     */
+    public contents: string;
+    
+    /**
+     * Gets or sets horizontal corner radius.
+     */
+    public hCornerRadius: number;
+    
+    /**
+     * Gets or sets Subject representing description of the object.
+     */
+    public subject: string;
+    
+    /**
+     * Gets or sets a Title that will be displayed in title bar of annotation object.
+     */
+    public title: string;
+    
+    /**
+     * Gets or sets vertical corner radius.
+     */
+    public vCornerRadius: number;
+    
+    public constructor(init?: Partial<PdfTextAnnotationAppearance>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace PdfTextAnnotationAppearance {
+    export enum BorderEffectEnum {
+        None = 'None' as any,
+        Cloudy = 'Cloudy' as any,
+    }
+}
+// tslint:enable:quotemark
+/**
+ * Describes appearance of PDF text annotation sticker object and pop-up window of sticker.
+ */
+export class PdfTextStickerAppearance extends SignatureAppearance {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "contents",
+            baseName: "contents",
+            type: "string",
+        },        
+        {
+            name: "icon",
+            baseName: "icon",
+            type: "PdfTextStickerAppearance.IconEnum",
+        },        
+        {
+            name: "opened",
+            baseName: "opened",
+            type: "boolean",
+        },        
+        {
+            name: "subject",
+            baseName: "subject",
+            type: "string",
+        },        
+        {
+            name: "title",
+            baseName: "title",
+            type: "string",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(PdfTextStickerAppearance.attributeTypeMap);
+    }
+
+    /**
+     * Gets or sets the contents of pop-up window.
+     */
+    public contents: string;
+    
+    /**
+     * Gets or sets the icon of sticker.
+     */
+    public icon: PdfTextStickerAppearance.IconEnum;
+    
+    /**
+     * Setup if sticker pop-up window will be opened by default.
+     */
+    public opened: boolean;
+    
+    /**
+     * Gets or sets subject.
+     */
+    public subject: string;
+    
+    /**
+     * Gets or sets title of pop-up window.
+     */
+    public title: string;
+    
+    public constructor(init?: Partial<PdfTextStickerAppearance>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace PdfTextStickerAppearance {
+    export enum IconEnum {
+        Note = 'Note' as any,
+        Comment = 'Comment' as any,
+        Key = 'Key' as any,
+        Help = 'Help' as any,
+        NewParagraph = 'NewParagraph' as any,
+        Paragraph = 'Paragraph' as any,
+        Insert = 'Insert' as any,
+        Check = 'Check' as any,
+        Cross = 'Cross' as any,
+        Circle = 'Circle' as any,
+        Star = 'Star' as any,
+    }
+}
+// tslint:enable:quotemark
 /**
  * Defines preview request settings
  */
@@ -3062,7 +3628,11 @@ export class SignOptions extends OptionsBase {
      * Attribute type map
      */
     public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
-    ];
+        {
+            name: "appearance",
+            baseName: "appearance",
+            type: "SignatureAppearance",
+        }    ];
 
     /**
      * Returns attribute type map
@@ -3071,6 +3641,11 @@ export class SignOptions extends OptionsBase {
         return super.getAttributeTypeMap().concat(SignOptions.attributeTypeMap);
     }
 
+    /**
+     * Specifies Appearance with additional properties for this options instance
+     */
+    public appearance: SignatureAppearance;
+    
     public constructor(init?: Partial<SignOptions>) {
         super(init);
         Object.assign(this, init);
@@ -3334,6 +3909,178 @@ export class VerifySettings extends BaseSettings {
     }        
 }
 
+/**
+ * Contains check-box input form field signature properties
+ */
+export class CheckboxFormFieldSignature extends FormFieldSignature {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "checked",
+            baseName: "checked",
+            type: "boolean",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(CheckboxFormFieldSignature.attributeTypeMap);
+    }
+
+    /**
+     * Gets or sets checked value of form field check-box input
+     */
+    public checked: boolean;
+    
+    public constructor(init?: Partial<CheckboxFormFieldSignature>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace CheckboxFormFieldSignature {
+}
+// tslint:enable:quotemark
+/**
+ * Contains combo-box input form field signature properties
+ */
+export class ComboboxFormFieldSignature extends FormFieldSignature {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "selected",
+            baseName: "selected",
+            type: "string",
+        },        
+        {
+            name: "items",
+            baseName: "items",
+            type: "Array<string>",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(ComboboxFormFieldSignature.attributeTypeMap);
+    }
+
+    /**
+     * Get or set selected value
+     */
+    public selected: string;
+    
+    /**
+     * Get or set combo-box options list
+     */
+    public items: Array<string>;
+    
+    public constructor(init?: Partial<ComboboxFormFieldSignature>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace ComboboxFormFieldSignature {
+}
+// tslint:enable:quotemark
+/**
+ * Contains digital signature input form field properties for Pdf Documents
+ */
+export class DigitalFormFieldSignature extends FormFieldSignature {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "signed",
+            baseName: "signed",
+            type: "boolean",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(DigitalFormFieldSignature.attributeTypeMap);
+    }
+
+    /**
+     * Property that shows if Form-field Signature was signed with digital certificate
+     */
+    public signed: boolean;
+    
+    public constructor(init?: Partial<DigitalFormFieldSignature>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace DigitalFormFieldSignature {
+}
+// tslint:enable:quotemark
+/**
+ * Contains radio-button input form field signature properties
+ */
+export class RadioButtonFormFieldSignature extends FormFieldSignature {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "selected",
+            baseName: "selected",
+            type: "string",
+        },        
+        {
+            name: "items",
+            baseName: "items",
+            type: "Array<string>",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(RadioButtonFormFieldSignature.attributeTypeMap);
+    }
+
+    /**
+     * Get or set selected value
+     */
+    public selected: string;
+    
+    /**
+     * Get or set radio options list
+     */
+    public items: Array<string>;
+    
+    public constructor(init?: Partial<RadioButtonFormFieldSignature>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace RadioButtonFormFieldSignature {
+}
+// tslint:enable:quotemark
 /**
  * Defines options to Search barcode signature within a document
  */
@@ -3978,6 +4725,44 @@ export namespace SignTextOptions {
 }
 // tslint:enable:quotemark
 /**
+ * Contains text input form field signature properties for Pdf Document
+ */
+export class TextFormFieldSignature extends FormFieldSignature {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "text",
+            baseName: "text",
+            type: "string",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(TextFormFieldSignature.attributeTypeMap);
+    }
+
+    /**
+     * Gets or sets text of form field text input
+     */
+    public text: string;
+    
+    public constructor(init?: Partial<TextFormFieldSignature>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace TextFormFieldSignature {
+}
+// tslint:enable:quotemark
+/**
  * Defines options to verify Digital signature within a document
  */
 export class VerifyDigitalOptions extends VerifyOptions {
@@ -4581,8 +5366,12 @@ const enumsMap = {
     "OptionsBase.SignatureTypeEnum": OptionsBase.SignatureTypeEnum,
     "PdfDigitalSignature.TypeEnum": PdfDigitalSignature.TypeEnum,
     "Signature.SignatureTypeEnum": Signature.SignatureTypeEnum,
+    "SignatureAppearance.AppearanceTypeEnum": SignatureAppearance.AppearanceTypeEnum,
     "StampLine.TextRepeatTypeEnum": StampLine.TextRepeatTypeEnum,
     "UpdateOptions.SignatureTypeEnum": UpdateOptions.SignatureTypeEnum,
+    "FormFieldSignature.TypeEnum": FormFieldSignature.TypeEnum,
+    "PdfTextAnnotationAppearance.BorderEffectEnum": PdfTextAnnotationAppearance.BorderEffectEnum,
+    "PdfTextStickerAppearance.IconEnum": PdfTextStickerAppearance.IconEnum,
     "PreviewSettings.PreviewFormatEnum": PreviewSettings.PreviewFormatEnum,
     "SearchBarcodeOptions.MatchTypeEnum": SearchBarcodeOptions.MatchTypeEnum,
     "SearchQRCodeOptions.MatchTypeEnum": SearchQRCodeOptions.MatchTypeEnum,
@@ -4640,6 +5429,7 @@ const typeMap = {
             SearchResult,
             SignResult,
             Signature,
+            SignatureAppearance,
             SignatureFont,
             StampLine,
             StorageExist,
@@ -4651,10 +5441,16 @@ const typeMap = {
             BarcodeSignature,
             DeleteSettings,
             DigitalSignature,
+            DigitalSignatureAppearance,
             FileVersion,
+            FormFieldSignature,
+            ImageAppearance,
             ImageSignature,
             InfoSettings,
             LinearGradientBrush,
+            PdfDigitalSignatureAppearance,
+            PdfTextAnnotationAppearance,
+            PdfTextStickerAppearance,
             PreviewSettings,
             QRCodeSignature,
             RadialGradientBrush,
@@ -4668,11 +5464,16 @@ const typeMap = {
             UpdateSettings,
             VerifyOptions,
             VerifySettings,
+            CheckboxFormFieldSignature,
+            ComboboxFormFieldSignature,
+            DigitalFormFieldSignature,
+            RadioButtonFormFieldSignature,
             SearchBarcodeOptions,
             SearchDigitalOptions,
             SearchQRCodeOptions,
             SignImageOptions,
             SignTextOptions,
+            TextFormFieldSignature,
             VerifyDigitalOptions,
             VerifyTextOptions,
             SignBarcodeOptions,

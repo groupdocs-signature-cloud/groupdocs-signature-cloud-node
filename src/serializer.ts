@@ -22,7 +22,7 @@
 * SOFTWARE.
 */
 
-import { enumsMap, typeMap } from "./model";
+import { enumsMap, typeMap, FormFieldSignature } from "./model";
 
 const primitives = [
     "string",
@@ -150,6 +150,15 @@ export class Serializer {
             // Signature type fix
             const signatureTypeProperty = "signatureType";
             if (data[signatureTypeProperty] !== undefined) {
+                if(data[signatureTypeProperty] == "FormField") {
+                    let type = data["type"];
+                    if(type == FormFieldSignature.TypeEnum.Text) return "TextFormFieldSignature";
+                    if(type == FormFieldSignature.TypeEnum.Checkbox) return "CheckboxFormFieldSignature";
+                    if(type == FormFieldSignature.TypeEnum.Combobox) return "ComboboxFormFieldSignature";
+                    if(type == FormFieldSignature.TypeEnum.DigitalSignature) return "DigitalFormFieldSignature";
+                    if(type == FormFieldSignature.TypeEnum.Radio) return "RadioButtonFormFieldSignature";
+                    return "FormFieldSignature";
+                }
                 return data[signatureTypeProperty] + "Signature";
             }
 

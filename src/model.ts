@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2021 Aspose Pty Ltd
+* Copyright (c) 2003-2022 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -263,6 +263,11 @@ export class Color {
             name: "web",
             baseName: "web",
             type: "string",
+        },        
+        {
+            name: "alpha",
+            baseName: "alpha",
+            type: "number",
         }    ];
 
     /**
@@ -277,7 +282,55 @@ export class Color {
      */
     public web: string;
     
+    /**
+     * Alpha component of color structure
+     */
+    public alpha: number;
+    
     public constructor(init?: Partial<Color>) {
+        
+        Object.assign(this, init);
+    }        
+}
+
+/**
+ * Metered license consumption information
+ */
+export class ConsumptionResult {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "credit",
+            baseName: "credit",
+            type: "number",
+        },        
+        {
+            name: "quantity",
+            baseName: "quantity",
+            type: "number",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return ConsumptionResult.attributeTypeMap;
+    }
+
+    /**
+     * Amount of used credits
+     */
+    public credit: number;
+    
+    /**
+     * Amount of MBs processed
+     */
+    public quantity: number;
+    
+    public constructor(init?: Partial<ConsumptionResult>) {
         
         Object.assign(this, init);
     }        
@@ -5403,6 +5456,7 @@ const typeMap = {
             BorderLine,
             Brush,
             Color,
+            ConsumptionResult,
             DeleteOptions,
             DeleteResult,
             DiscUsage,

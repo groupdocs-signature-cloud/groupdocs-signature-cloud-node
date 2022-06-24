@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2021 Aspose Pty Ltd
+* Copyright (c) 2003-2022 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -582,6 +582,63 @@ export class InfoApi {
 
         const response = await invokeApiMethod(requestOptions, this.configuration);
         const result =  Serializer.deserialize(response.body, "QRCodesResult");
+        return Promise.resolve(result);
+    }
+
+}
+/**
+ * GroupDocs.Signature Cloud API 
+ */
+export class LicenseApi {
+    
+    /**
+     * Creates new instance of LicenseApi
+     * @param appSid Application identifier (App SID).
+     * @param appKey Application private key (App Key).
+     */
+    public static fromKeys(appSid: string, appKey: string) {
+        const config = new Configuration(appSid, appKey);
+        return new LicenseApi(config);
+    }
+
+    /**
+     * Creates new instance of LicenseApi
+     * @param config API configuration.
+     */
+    public static fromConfig(config: Configuration) {
+        return new LicenseApi(config);
+    }
+
+    /**
+     * Configuration
+     */
+    private configuration: Configuration;
+
+    /**
+     * @param config Configuration.
+     */
+    private constructor(config: Configuration) {
+        this.configuration = config;
+    }
+
+    /**
+     * Get license consumption
+     * @param requestObj contains request parameters
+     */
+    public async getConsumptionCredit(): Promise<model.ConsumptionResult> {
+
+        const localVarPath = this.configuration.getServerUrl() + "/signature/consumption";
+        const queryParameters: any = {};
+        
+        const requestOptions: request.Options = {
+            method: "GET",
+            qs: queryParameters,
+            uri: localVarPath,
+            json: true,
+        };
+
+        const response = await invokeApiMethod(requestOptions, this.configuration);
+        const result =  Serializer.deserialize(response.body, "ConsumptionResult");
         return Promise.resolve(result);
     }
 

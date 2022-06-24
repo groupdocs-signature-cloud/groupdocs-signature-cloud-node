@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2021 Aspose Pty Ltd
+* Copyright (c) 2003-2022 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -56,7 +56,7 @@ describe("verify_collection_tests", () => {
 
     it("test_verify_collection_presentation", async () => {  
         var testFile = TestFile.presentation_signed;
-        var settings = populate_options(testFile);
+        var settings = populate_options_image(testFile);
         var response = await TestContext.getSignApi().verifySignatures(new VerifySignaturesRequest(settings));
         check_response(response, testFile);
     });

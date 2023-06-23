@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2022 Aspose Pty Ltd
+* Copyright (c) 2003-2023 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +23,7 @@
 */
 
 import request = require("request");
+import jwt = require('jsonwebtoken');
 import { invokeApiMethod } from "./api_client";
 import { Configuration } from "./configuration";
 
@@ -47,7 +48,7 @@ export class OAuth implements IAuthentication {
      * Apply authentication settings to header and query params
      */
     public async applyToRequest(requestOptions: request.Options, configuration: Configuration): Promise<void> {
-        if (this.accessToken == null) {
+        if (this.accessToken == null || !this.isTokenValid()) {
             await this._requestToken(configuration);
         }
 
@@ -74,4 +75,26 @@ export class OAuth implements IAuthentication {
         this.accessToken = response.body.access_token;        
         return Promise.resolve();
     }
+
+    private isTokenValid() {
+        try {
+          const decodedToken = jwt.decode(this.accessToken);
+          
+          if (!decodedToken) {
+            console.log('Invalid token.');
+            return;
+          }
+          
+          const expirationTime = decodedToken.exp;
+          const currentTime = Math.floor(Date.now() / 1000);
+          
+          if (currentTime <= expirationTime) {
+            return true;
+          } else {
+            return false;
+          }
+        } catch (error) {
+          return false;
+        }
+      }      
 }

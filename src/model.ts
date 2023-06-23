@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2022 Aspose Pty Ltd
+* Copyright (c) 2003-2023 Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -263,11 +263,6 @@ export class Color {
             name: "web",
             baseName: "web",
             type: "string",
-        },        
-        {
-            name: "alpha",
-            baseName: "alpha",
-            type: "number",
         }    ];
 
     /**
@@ -281,11 +276,6 @@ export class Color {
      * HTML string color representation
      */
     public web: string;
-    
-    /**
-     * Alpha component of color structure
-     */
-    public alpha: number;
     
     public constructor(init?: Partial<Color>) {
         
@@ -3106,6 +3096,131 @@ export class LinearGradientBrush extends Brush {
 }
 
 /**
+ * Contains Metadata signature properties.
+ */
+export class MetadataSignature extends Signature {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "type",
+            baseName: "type",
+            type: "MetadataSignature.TypeEnum",
+        },        
+        {
+            name: "dataType",
+            baseName: "dataType",
+            type: "MetadataSignature.DataTypeEnum",
+        },        
+        {
+            name: "value",
+            baseName: "value",
+            type: "string",
+        },        
+        {
+            name: "name",
+            baseName: "name",
+            type: "string",
+        },        
+        {
+            name: "id",
+            baseName: "id",
+            type: "number",
+        },        
+        {
+            name: "size",
+            baseName: "size",
+            type: "number",
+        },        
+        {
+            name: "description",
+            baseName: "description",
+            type: "string",
+        },        
+        {
+            name: "tagPrefix",
+            baseName: "tagPrefix",
+            type: "string",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(MetadataSignature.attributeTypeMap);
+    }
+
+    /**
+     * Specifies metadata type.
+     */
+    public type: MetadataSignature.TypeEnum;
+    
+    /**
+     * Specifies metadata value type.
+     */
+    public dataType: MetadataSignature.DataTypeEnum;
+    
+    /**
+     * Specifies metadata object value
+     */
+    public value: string;
+    
+    /**
+     * Specifies unique metadata name
+     */
+    public name: string;
+    
+    /**
+     * The identifier of Image Metadata signature. See GroupDocs.Signature.Domain.ImageMetadataSignatures class that contains standard Signature with predefined Id value.
+     */
+    public id: number;
+    
+    /**
+     * Size of  Image Metadata value
+     */
+    public size: number;
+    
+    /**
+     * Description for standard Image Metadata signature
+     */
+    public description: string;
+    
+    /**
+     * The prefix tag of Pdf Metadata signature name. By default this property is set to \"xmp\". Possible values are
+     */
+    public tagPrefix: string;
+    
+    public constructor(init?: Partial<MetadataSignature>) {
+        super(init);
+        Object.assign(this, init);
+    }        
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace MetadataSignature {
+    export enum TypeEnum {
+        None = 'None' as any,
+        Certificate = 'Certificate' as any,
+        Image = 'Image' as any,
+        Pdf = 'Pdf' as any,
+        Presentation = 'Presentation' as any,
+        Spreadsheet = 'Spreadsheet' as any,
+        WordProcessing = 'WordProcessing' as any,
+    }
+    export enum DataTypeEnum {
+        Undefined = 'Undefined' as any,
+        Boolean = 'Boolean' as any,
+        Integer = 'Integer' as any,
+        Double = 'Double' as any,
+        DateTime = 'DateTime' as any,
+        String = 'String' as any,
+    }
+}
+// tslint:enable:quotemark
+/**
  * Describes appearance of Digital Signature are on PDF documents.
  */
 export class PdfDigitalSignatureAppearance extends SignatureAppearance {
@@ -5423,6 +5538,8 @@ const enumsMap = {
     "StampLine.TextRepeatTypeEnum": StampLine.TextRepeatTypeEnum,
     "UpdateOptions.SignatureTypeEnum": UpdateOptions.SignatureTypeEnum,
     "FormFieldSignature.TypeEnum": FormFieldSignature.TypeEnum,
+    "MetadataSignature.TypeEnum": MetadataSignature.TypeEnum,
+    "MetadataSignature.DataTypeEnum": MetadataSignature.DataTypeEnum,
     "PdfTextAnnotationAppearance.BorderEffectEnum": PdfTextAnnotationAppearance.BorderEffectEnum,
     "PdfTextStickerAppearance.IconEnum": PdfTextStickerAppearance.IconEnum,
     "PreviewSettings.PreviewFormatEnum": PreviewSettings.PreviewFormatEnum,
@@ -5502,6 +5619,7 @@ const typeMap = {
             ImageSignature,
             InfoSettings,
             LinearGradientBrush,
+            MetadataSignature,
             PdfDigitalSignatureAppearance,
             PdfTextAnnotationAppearance,
             PdfTextStickerAppearance,

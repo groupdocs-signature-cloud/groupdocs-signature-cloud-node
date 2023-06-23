@@ -1,6 +1,6 @@
 {
   "name": "groupdocs-signature-cloud",
-  "version": "22.6.0",
+  "version": "23.6.0",
   "description": "GroupDocs.Signature Cloud SDK for Node.js",
   "homepage": "https://products.groupdocs.cloud/signature",
   "author": {
@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@types/request": "^2.48.4",
+    "jsonwebtoken": "*",
     "request": "^2.88.2",
     "request-debug": "^0.2.0"
   },

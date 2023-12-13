@@ -448,6 +448,66 @@ export class DeleteResult {
     }        
 }
 
+export class DigitalVBA {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "password",
+            baseName: "password",
+            type: "string",
+        },        
+        {
+            name: "certificateFilePath",
+            baseName: "certificateFilePath",
+            type: "string",
+        },        
+        {
+            name: "signOnlyVBAProject",
+            baseName: "signOnlyVBAProject",
+            type: "boolean",
+        },        
+        {
+            name: "comments",
+            baseName: "comments",
+            type: "string",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return DigitalVBA.attributeTypeMap;
+    }
+
+    /**
+     * Gets or sets the password of digital certificate
+     */
+    public password: string;
+    
+    /**
+     * Gets or sets the digital certificate file path
+     */
+    public certificateFilePath: string;
+    
+    /**
+     * Gets or sets setting of only VBA project signing. If set to true, the SpreadSheet document will not be signed, but the VBA project will be signed.             
+     */
+    public signOnlyVBAProject: boolean;
+    
+    /**
+     * Gets or sets the signature comments.
+     */
+    public comments: string;
+    
+    public constructor(init?: Partial<DigitalVBA>) {
+        
+        Object.assign(this, init);
+    }        
+}
+
 /**
  * Class for disc space information.
  */
@@ -5209,6 +5269,11 @@ export class SignDigitalOptions extends SignImageOptions {
             name: "xAdESType",
             baseName: "xAdESType",
             type: "SignDigitalOptions.XAdESTypeEnum",
+        },        
+        {
+            name: "digitalVBA",
+            baseName: "digitalVBA",
+            type: "DigitalVBA",
         }    ];
 
     /**
@@ -5252,6 +5317,11 @@ export class SignDigitalOptions extends SignImageOptions {
      * XAdES type GroupDocs.Signature.Options.DigitalSignOptions.XAdESType. Default value is None (XAdES is off). At this moment XAdES signature type is supported only for Spreadsheet documents.             
      */
     public xAdESType: SignDigitalOptions.XAdESTypeEnum;
+    
+    /**
+     * Options for signing VBA project
+     */
+    public digitalVBA: DigitalVBA;
     
     public constructor(init?: Partial<SignDigitalOptions>) {
         super(init);
@@ -5576,6 +5646,7 @@ const typeMap = {
             ConsumptionResult,
             DeleteOptions,
             DeleteResult,
+            DigitalVBA,
             DiscUsage,
             ErrorDetails,
             FileInfo,

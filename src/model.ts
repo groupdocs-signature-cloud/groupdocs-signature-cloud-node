@@ -5274,6 +5274,16 @@ export class SignDigitalOptions extends SignImageOptions {
             name: "digitalVBA",
             baseName: "digitalVBA",
             type: "DigitalVBA",
+        },        
+        {
+            name: "signTime",
+            baseName: "signTime",
+            type: "Date",
+        },        
+        {
+            name: "comments",
+            baseName: "comments",
+            type: "string",
         }    ];
 
     /**
@@ -5322,6 +5332,16 @@ export class SignDigitalOptions extends SignImageOptions {
      * Options for signing VBA project
      */
     public digitalVBA: DigitalVBA;
+    
+    /**
+     * The time the document was signed.
+     */
+    public signTime: Date;
+    
+    /**
+     * The signing purpose comment.
+     */
+    public comments: string;
     
     public constructor(init?: Partial<SignDigitalOptions>) {
         super(init);

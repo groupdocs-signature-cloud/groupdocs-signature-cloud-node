@@ -79,7 +79,7 @@ describe("verify_collection_tests", () => {
     {
         var opts = new VerifyBarcodeOptions();
         opts.signatureType = OptionsBase.SignatureTypeEnum.Barcode;
-        opts.barcodeType = 'Code39Standard';
+        opts.barcodeType = 'Code39';
         opts.text = '123456789012';
         opts.matchType = VerifyBarcodeOptions.MatchTypeEnum.Contains;
 

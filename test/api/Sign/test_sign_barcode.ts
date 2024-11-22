@@ -84,7 +84,7 @@ describe("sign_barcode_tests", () => {
     {
         var opts = new SignBarcodeOptions();
         opts.signatureType = OptionsBase.SignatureTypeEnum.Barcode;
-        opts.barcodeType = 'Code39Standard';
+        opts.barcodeType = 'Code39';
         opts.text = '123456789012';
         opts.codeTextAlignment = SignBarcodeOptions.CodeTextAlignmentEnum.None;
 

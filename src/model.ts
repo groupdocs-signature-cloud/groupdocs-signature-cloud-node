@@ -3611,6 +3611,11 @@ export class PreviewSettings extends BaseSettings {
             type: "number",
         },        
         {
+            name: "resolution",
+            baseName: "resolution",
+            type: "number",
+        },        
+        {
             name: "pageNumbers",
             baseName: "pageNumbers",
             type: "Array<number>",
@@ -3647,6 +3652,11 @@ export class PreviewSettings extends BaseSettings {
      * Preview images height
      */
     public height: number;
+    
+    /**
+     * Gets or sets the resolution of the preview images in DPI (dots per inch).
+     */
+    public resolution: number;
     
     /**
      * Preview page numbers

@@ -3295,6 +3295,11 @@ export class PdfDigitalSignatureAppearance extends SignatureAppearance {
             type: "Color",
         },        
         {
+            name: "foreground",
+            baseName: "foreground",
+            type: "Color",
+        },        
+        {
             name: "contactInfoLabel",
             baseName: "contactInfoLabel",
             type: "string",
@@ -3338,9 +3343,14 @@ export class PdfDigitalSignatureAppearance extends SignatureAppearance {
     }
 
     /**
-     * Get or set background color of signature appearance. By default the value is SystemColors.Windows
+     * Get or set background color of signature appearance. 
      */
     public background: Color;
+    
+    /**
+     * Get or set foreground text color of signature appearance. By default the value is Color.FromArgb(76, 100, 255)
+     */
+    public foreground: Color;
     
     /**
      * Gets or sets contact info label. Default value: \"Contact\". if this value is empty then no contact label will appear on digital signature area.             

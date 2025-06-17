@@ -1,7 +1,7 @@
 /*
 * The MIT License (MIT)
 *
-* Copyright (c) 2003-2023 Aspose Pty Ltd
+* Copyright (c) Aspose Pty Ltd
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -21,6 +21,95 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
+
+export class ApiError {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "code",
+            baseName: "code",
+            type: "string",
+        },        
+        {
+            name: "message",
+            baseName: "message",
+            type: "string",
+        },        
+        {
+            name: "description",
+            baseName: "description",
+            type: "string",
+        },        
+        {
+            name: "dateTime",
+            baseName: "dateTime",
+            type: "Date",
+        },        
+        {
+            name: "innerError",
+            baseName: "innerError",
+            type: "ApiError",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return ApiError.attributeTypeMap;
+    }
+
+    public code: string;
+    
+    public message: string;
+    
+    public description: string;
+    
+    public dateTime: Date;
+    
+    public innerError: ApiError;
+    
+    public constructor(init?: Partial<ApiError>) {
+        
+        Object.assign(this, init);
+    }        
+}
+
+export class ApiErrorResponse {
+
+    /**
+     * Attribute type map
+     */
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "requestId",
+            baseName: "requestId",
+            type: "string",
+        },        
+        {
+            name: "error",
+            baseName: "error",
+            type: "ApiError",
+        }    ];
+
+    /**
+     * Returns attribute type map
+     */
+    public static getAttributeTypeMap() {
+        return ApiErrorResponse.attributeTypeMap;
+    }
+
+    public requestId: string;
+    
+    public error: ApiError;
+    
+    public constructor(init?: Partial<ApiErrorResponse>) {
+        
+        Object.assign(this, init);
+    }        
+}
 
 /**
  * Describes Barcode type
@@ -301,6 +390,11 @@ export class ConsumptionResult {
             name: "quantity",
             baseName: "quantity",
             type: "number",
+        },        
+        {
+            name: "billedApiCalls",
+            baseName: "billedApiCalls",
+            type: "number",
         }    ];
 
     /**
@@ -319,6 +413,11 @@ export class ConsumptionResult {
      * Amount of MBs processed
      */
     public quantity: number;
+    
+    /**
+     * Billed API calls number
+     */
+    public billedApiCalls: number;
     
     public constructor(init?: Partial<ConsumptionResult>) {
         
@@ -5677,6 +5776,8 @@ const enumsMap = {
 };
 
 const typeMap = {
+            ApiError,
+            ApiErrorResponse,
             BarcodeType,
             BarcodesResult,
             BaseSettings,

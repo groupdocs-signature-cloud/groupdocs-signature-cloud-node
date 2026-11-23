@@ -31,81 +31,87 @@ export class TestFile {
      * PDF file with one page
      */
     public static pdf_one_page: TestFile =
-        new TestFile("01_pages.pdf", "Pdf\\");
+        new TestFile("01_pages.pdf", "Pdf/");
 
     /**
      * Image file
      */
     public static image_jpg: TestFile =
-        new TestFile("01_pages.jpg", "Images\\");
+        new TestFile("01_pages.jpg", "Images/");
 
     /**
      * Presentation file
      */
     public static presentation_pptx: TestFile =
-        new TestFile("01_pages.pptx", "Presentations\\");
+        new TestFile("01_pages.pptx", "Presentations/");
         
     /**
      * Spreadsheet file
      */
     public static spreadsheet_xlsx: TestFile =
-        new TestFile("01_pages.xlsx", "Spreadsheets\\");
+        new TestFile("01_pages.xlsx", "Spreadsheets/");
         
     /**
      * Word file
      */
     public static word_docx: TestFile =
-        new TestFile("01_pages.docx", "WordProcessing\\");        
+        new TestFile("01_pages.docx", "WordProcessing/");
 
 
     /**
      * Signed image file
      */
     public static image_signed: TestFile =
-        new TestFile("SignedForVerificationAll.png", "Signed\\", 27533);  
+        new TestFile("SignedForVerificationAll.png", "Signed/", 27533);
                                       
     /**
      * Signed pdf file
      */
     public static pdf_signed: TestFile =
-        new TestFile("SignedForVerificationAll.pdf", "Signed\\", 164060);  
+        new TestFile("SignedForVerificationAll.pdf", "Signed/", 164060);
+
+    /**
+     * Signed PDF file with digital signature
+     */
+    public static pdf_digital_signed: TestFile =
+        new TestFile("SignedForVerificationDigital.pdf", "Signed/", 581574);
         
     /**
      * Signed presentation file
      */
     public static presentation_signed: TestFile =
-        new TestFile("SignedForVerificationAll.pptx", "Signed\\", 43205);  
+        new TestFile("SignedForVerificationAll.pptx", "Signed/", 43205);
         
     /**
      * Signed spreadsheet file
      */
     public static spreadsheet_signed: TestFile =
-        new TestFile("SignedForVerificationAll.xlsx", "Signed\\", 318157);  
+        new TestFile("SignedForVerificationAll.xlsx", "Signed/", 318157);
         
     /**
      * Signed word file
      */
     public static wordprocessing_signed: TestFile =
-        new TestFile("SignedForVerificationAll.docx", "Signed\\", 1358290);          
+        new TestFile("SignedForVerificationAll.docx", "Signed/", 1358290);
 
 
     /**
      * Image signature file
      */
     public static additional_signature01: TestFile =
-        new TestFile("signature_01.jpg", "Additional\\");        
+        new TestFile("signature_01.jpg", "Additional/");
 
     /**
      * Certificate file
      */
     public static additional_pfx: TestFile =
-        new TestFile("SherlockHolmes.pfx", "Additional\\");        
+        new TestFile("TestCertificate.pfx", "Additional/");
 
     /**
      * Image signature file
      */
     public static image_sign: TestFile =
-        new TestFile("JohnSmithSign.png", "Additional\\");        
+        new TestFile("JohnSmithSign.png", "Additional/");
 
     /**
      * File name
@@ -156,6 +162,7 @@ export class TestFile {
 
             TestFile.image_signed,
             TestFile.pdf_signed,
+            TestFile.pdf_digital_signed,
             TestFile.presentation_signed,
             TestFile.spreadsheet_signed,
             TestFile.wordprocessing_signed,

@@ -42,7 +42,7 @@ describe("sign_text_tests", () => {
 
     it("test_sign_text_image", async () => {  
         var testFile = TestFile.image_jpg;
-        var signedFileName = "Output\\ImageTextSigned.jpg";
+        var signedFileName = "Output/ImageTextSigned.jpg";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -50,7 +50,7 @@ describe("sign_text_tests", () => {
 
     it("test_sign_text_pdf", async () => {  
         var testFile = TestFile.pdf_one_page;
-        var signedFileName = "Output\\PdfTextSigned.pdf";
+        var signedFileName = "Output/PdfTextSigned.pdf";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -58,7 +58,7 @@ describe("sign_text_tests", () => {
 
     it("test_sign_text_presentation", async () => {  
         var testFile = TestFile.presentation_pptx;
-        var signedFileName = "Output\\PresentationTextSigned.pptx";
+        var signedFileName = "Output/PresentationTextSigned.pptx";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -66,7 +66,7 @@ describe("sign_text_tests", () => {
 
     it("test_sign_text_spreadsheet", async () => {  
         var testFile = TestFile.spreadsheet_xlsx;
-        var signedFileName = "Output\\SpreadsheetTextSigned.xlsx";
+        var signedFileName = "Output/SpreadsheetTextSigned.xlsx";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -74,7 +74,7 @@ describe("sign_text_tests", () => {
 
     it("test_sign_text_wordprocessing", async () => {  
         var testFile = TestFile.word_docx;
-        var signedFileName = "Output\\WordTextSigned.docx";
+        var signedFileName = "Output/WordTextSigned.docx";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);

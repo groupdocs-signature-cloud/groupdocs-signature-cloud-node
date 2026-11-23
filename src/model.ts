@@ -481,6 +481,7 @@ export namespace DeleteOptions {
         Stamp = 'Stamp' as any,
         FormField = 'FormField' as any,
         Metadata = 'Metadata' as any,
+        ImageDigital = 'ImageDigital' as any,
     }
 }
 // tslint:enable:quotemark
@@ -1256,6 +1257,7 @@ export namespace OptionsBase {
         Stamp = 'Stamp' as any,
         FormField = 'FormField' as any,
         Metadata = 'Metadata' as any,
+        ImageDigital = 'ImageDigital' as any,
     }
 }
 // tslint:enable:quotemark
@@ -2087,6 +2089,7 @@ export namespace Signature {
         Stamp = 'Stamp' as any,
         FormField = 'FormField' as any,
         Metadata = 'Metadata' as any,
+        ImageDigital = 'ImageDigital' as any,
     }
 }
 // tslint:enable:quotemark
@@ -2617,6 +2620,7 @@ export namespace UpdateOptions {
         Stamp = 'Stamp' as any,
         FormField = 'FormField' as any,
         Metadata = 'Metadata' as any,
+        ImageDigital = 'ImageDigital' as any,
     }
 }
 // tslint:enable:quotemark
@@ -3432,6 +3436,11 @@ export class PdfDigitalSignatureAppearance extends SignatureAppearance {
             name: "reasonLabel",
             baseName: "reasonLabel",
             type: "string",
+        },
+        {
+            name: "isForegroundImage",
+            baseName: "isForegroundImage",
+            type: "boolean",
         }    ];
 
     /**
@@ -3486,6 +3495,11 @@ export class PdfDigitalSignatureAppearance extends SignatureAppearance {
      */
     public reasonLabel: string;
     
+    /**
+     * Gets or sets whether the signature image is drawn in front of the text.
+     */
+    public isForegroundImage: boolean;
+
     public constructor(init?: Partial<PdfDigitalSignatureAppearance>) {
         super(init);
         Object.assign(this, init);
@@ -5110,6 +5124,38 @@ export namespace TextFormFieldSignature {
 }
 // tslint:enable:quotemark
 /**
+ * Represents the ImageDigital sign options
+ */
+export class SignImageDigitalOptions extends SignOptions {
+
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "password",
+            baseName: "password",
+            type: "string",
+        }    ];
+
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(SignImageDigitalOptions.attributeTypeMap);
+    }
+
+    /**
+     * Gets or sets the password used to embed the signature.
+     */
+    public password: string;
+
+    public constructor(init?: Partial<SignImageDigitalOptions>) {
+        super(init);
+        Object.assign(this, init);
+    }
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace SignImageDigitalOptions {
+}
+// tslint:enable:quotemark
+/**
  * Defines options to verify Digital signature within a document
  */
 export class VerifyDigitalOptions extends VerifyOptions {
@@ -5215,6 +5261,58 @@ export class VerifyDigitalOptions extends VerifyOptions {
 // tslint:disable:quotemark
 // tslint:disable-next-line:no-namespace
 export namespace VerifyDigitalOptions {
+}
+// tslint:enable:quotemark
+/**
+ * Defines options to verify ImageDigital signature within a document
+ */
+export class VerifyImageDigitalOptions extends VerifyOptions {
+
+    public static attributeTypeMap: Array<{name: string, baseName: string, type: string}> = [
+        {
+            name: "password",
+            baseName: "password",
+            type: "string",
+        },
+        {
+            name: "detectionThresholdPercent",
+            baseName: "detectionThresholdPercent",
+            type: "number",
+        },
+        {
+            name: "useFullDataExtraction",
+            baseName: "useFullDataExtraction",
+            type: "boolean",
+        }    ];
+
+    public static getAttributeTypeMap() {
+        return super.getAttributeTypeMap().concat(VerifyImageDigitalOptions.attributeTypeMap);
+    }
+
+    /**
+     * Gets or sets the password used to embed the signature.
+     */
+    public password: string;
+
+    /**
+     * Gets or sets the detection threshold percentage (0-100).
+     */
+    public detectionThresholdPercent: number;
+
+    /**
+     * Gets or sets whether to use full data extraction for maximum accuracy.
+     */
+    public useFullDataExtraction: boolean;
+
+    public constructor(init?: Partial<VerifyImageDigitalOptions>) {
+        super(init);
+        Object.assign(this, init);
+    }
+}
+
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace VerifyImageDigitalOptions {
 }
 // tslint:enable:quotemark
 /**
@@ -5862,9 +5960,11 @@ const typeMap = {
             VerifyTextOptions,
             SignBarcodeOptions,
             SignDigitalOptions,
+            SignImageDigitalOptions,
             SignQRCodeOptions,
             SignStampOptions,
             VerifyBarcodeOptions,
+            VerifyImageDigitalOptions,
             VerifyQRCodeOptions,
 };
 

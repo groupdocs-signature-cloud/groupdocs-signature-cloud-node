@@ -42,7 +42,7 @@ describe("sign_barcode_tests", () => {
 
     it("test_sign_barcode_image", async () => {  
         var testFile = TestFile.image_jpg;
-        var signedFileName = "Output\\ImageBarcodeSigned.jpg";
+        var signedFileName = "Output/ImageBarcodeSigned.jpg";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -50,7 +50,7 @@ describe("sign_barcode_tests", () => {
 
     it("test_sign_barcode_pdf", async () => {  
         var testFile = TestFile.pdf_one_page;
-        var signedFileName = "Output\\PdfBarcodeSigned.pdf";
+        var signedFileName = "Output/PdfBarcodeSigned.pdf";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -58,7 +58,7 @@ describe("sign_barcode_tests", () => {
 
     it("test_sign_barcode_presentation", async () => {  
         var testFile = TestFile.presentation_pptx;
-        var signedFileName = "Output\\PresentationBarcodeSigned.pptx";
+        var signedFileName = "Output/PresentationBarcodeSigned.pptx";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -66,7 +66,7 @@ describe("sign_barcode_tests", () => {
 
     it("test_sign_barcode_spreadsheet", async () => {  
         var testFile = TestFile.spreadsheet_xlsx;
-        var signedFileName = "Output\\SpreadsheetBarcodeSigned.xlsx";
+        var signedFileName = "Output/SpreadsheetBarcodeSigned.xlsx";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -74,7 +74,7 @@ describe("sign_barcode_tests", () => {
 
     it("test_sign_barcode_wordprocessing", async () => {  
         var testFile = TestFile.word_docx;
-        var signedFileName = "Output\\WordBarcodeSigned.docx";
+        var signedFileName = "Output/WordBarcodeSigned.docx";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);

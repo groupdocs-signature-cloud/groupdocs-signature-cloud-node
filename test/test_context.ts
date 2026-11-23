@@ -47,8 +47,11 @@ export function getSignApi() {
     if (!signApi) {
         const settings = require("./test_settings.json");
 
-        const config = new Configuration(settings.AppSid, settings.AppKey);
-        config.apiBaseUrl = settings.ApiBaseUrl;
+        const config = new Configuration(
+            process.env.TEST_APP_SID || settings.AppSid,
+            process.env.TEST_APP_KEY || settings.AppKey
+        );
+        config.apiBaseUrl = getApiBaseUrl();
         //config.debugging = true;
         infoApi = InfoApi.fromConfig(config);
         signApi = SignApi.fromConfig(config);
@@ -84,18 +87,24 @@ export function getFolderApi() {
 /**
  * Uploads test files
  */
-export function uploadTestFiles() {
+export function getApiBaseUrl() {
+    const settings = require("./test_settings.json");
+    return process.env.TEST_API_BASE_URL || settings.ApiBaseUrl;
+}
+
+
+export async function uploadTestFiles(): Promise<void> {
     if(uploaded) return;
     if (!signApi) getSignApi();    
     const testFiles = TestFile.GetTestFiles();
-    testFiles.forEach(async function (file) {
+    for (const file of testFiles) {
         const response = await storageApi.objectExists(new ObjectExistsRequest(file.GetPath()));
         if (!response.exists) {
             console.log("Uploading: " + file.GetPath());
             let filebuf = getTestFileBuffer(file);
             await fileApi.uploadFile(new UploadFileRequest(file.GetPath(), filebuf));
         }        
-    });
+    }
     uploaded = true;
 }
 
@@ -116,8 +125,8 @@ export function cleanupTempFiles() {
  * Retrieves test file 
  */
 export function getTestFileBuffer(file: TestFile) {
-    const testFilesDir = __dirname + "\\test_files";
-    const testFilePath = testFilesDir + "\\" + file.GetPath();
+    const testFilesDir = __dirname + "/test_files";
+    const testFilePath = testFilesDir + "/" + file.GetPath();
     return fs.readFileSync(testFilePath);
 }
 

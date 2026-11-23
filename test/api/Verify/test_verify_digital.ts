@@ -45,7 +45,7 @@ describe("verify_digital_tests", () => {
     });
 
     it("test_verify_digital_pdf", async () => {  
-        var testFile = TestFile.pdf_signed;
+        var testFile = TestFile.pdf_digital_signed;
         var settings = populate_options(testFile);
         var response = await TestContext.getSignApi().verifySignatures(new VerifySignaturesRequest(settings));
         check_response(response, testFile);

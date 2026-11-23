@@ -27,17 +27,17 @@ import "mocha";
 
 import { Configuration } from "../../src/configuration";
 import { InfoApi } from "../../src/signature_api";
+import * as TestContext from "../test_context";
 
 describe("auth_api", () => {
 
     describe("test_auth_error", () => {
         it("should throw when app sid not found", () => {    
-            const settings = require("../test_settings.json");
             const appSid = "test";
             const appKey = "test";
           
             const config = new Configuration(appSid, appKey);
-            config.apiBaseUrl = settings.ApiBaseUrl;
+            config.apiBaseUrl = TestContext.getApiBaseUrl();
             const infoApi = InfoApi.fromConfig(config);
 
             return infoApi.getSupportedFileFormats()

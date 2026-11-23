@@ -43,7 +43,7 @@ describe("sign_collection_tests", () => {
 
     it("test_sign_collection_image", async () => {  
         var testFile = TestFile.image_jpg;
-        var signedFileName = "Output\\ImageCollectionSigned.jpg";
+        var signedFileName = "Output/ImageCollectionSigned.jpg";
         var settings = populate_options_image(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -51,7 +51,7 @@ describe("sign_collection_tests", () => {
 
     it("test_sign_collection_pdf", async () => {  
         var testFile = TestFile.pdf_one_page;
-        var signedFileName = "Output\\PdfCollectionSigned.pdf";
+        var signedFileName = "Output/PdfCollectionSigned.pdf";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -59,7 +59,7 @@ describe("sign_collection_tests", () => {
 
     it("test_sign_collection_presentation", async () => {  
         var testFile = TestFile.presentation_pptx;
-        var signedFileName = "Output\\PresentationCollectionSigned.pptx";
+        var signedFileName = "Output/PresentationCollectionSigned.pptx";
         var settings = populate_options_image(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -67,7 +67,7 @@ describe("sign_collection_tests", () => {
 
     it("test_sign_collection_spreadsheet", async () => {  
         var testFile = TestFile.spreadsheet_xlsx;
-        var signedFileName = "Output\\SpreadsheetCollectionSigned.xlsx";
+        var signedFileName = "Output/SpreadsheetCollectionSigned.xlsx";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -75,7 +75,7 @@ describe("sign_collection_tests", () => {
 
     it("test_sign_collection_wordprocessing", async () => {  
         var testFile = TestFile.word_docx;
-        var signedFileName = "Output\\WordCollectionSigned.docx";
+        var signedFileName = "Output/WordCollectionSigned.docx";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);

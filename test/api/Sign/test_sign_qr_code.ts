@@ -42,7 +42,7 @@ describe("sign_qr_code_tests", () => {
 
     it("test_sign_qr_code_image", async () => {  
         var testFile = TestFile.image_jpg;
-        var signedFileName = "Output\\ImageQRcodeSigned.jpg";
+        var signedFileName = "Output/ImageQRcodeSigned.jpg";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -50,7 +50,7 @@ describe("sign_qr_code_tests", () => {
 
     it("test_sign_qr_code_pdf", async () => {  
         var testFile = TestFile.pdf_one_page;
-        var signedFileName = "Output\\PdfQRcodeSigned.pdf";
+        var signedFileName = "Output/PdfQRcodeSigned.pdf";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -58,7 +58,7 @@ describe("sign_qr_code_tests", () => {
 
     it("test_sign_qr_code_presentation", async () => {  
         var testFile = TestFile.presentation_pptx;
-        var signedFileName = "Output\\PresentationQRcodeSigned.pptx";
+        var signedFileName = "Output/PresentationQRcodeSigned.pptx";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -66,7 +66,7 @@ describe("sign_qr_code_tests", () => {
 
     it("test_sign_qr_code_spreadsheet", async () => {  
         var testFile = TestFile.spreadsheet_xlsx;
-        var signedFileName = "Output\\SpreadsheetQRcodeSigned.xlsx";
+        var signedFileName = "Output/SpreadsheetQRcodeSigned.xlsx";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
@@ -74,7 +74,7 @@ describe("sign_qr_code_tests", () => {
 
     it("test_sign_qr_code_wordprocessing", async () => {  
         var testFile = TestFile.word_docx;
-        var signedFileName = "Output\\WordQRcodeSigned.docx";
+        var signedFileName = "Output/WordQRcodeSigned.docx";
         var settings = populate_options(signedFileName, testFile);
         var response = await TestContext.getSignApi().createSignatures(new CreateSignaturesRequest(settings));
         await check_response(response, signedFileName);
